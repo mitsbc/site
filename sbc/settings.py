@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'suma+new',                      # Or path to database file if using sqlite3.
         'HOST': 'sql.mit.edu',
         'USER': 'suma',
-        'PASSWORD': open('/mit/sbc/Scripts/django/sbc/db.txt').read().strip(),                    
+        'PASSWORD': open('/Users/yasyf/Dropbox/Documents/sbc/db.txt').read().strip(),                    
         'PORT': '',                       # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
     }
 }
@@ -49,22 +49,22 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/afs/athena.mit.edu/activity/s/sbc/web_scripts/beta/media/'
+MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = 'http://beta.sbc.scripts.mit.edu/media/'
+MEDIA_URL = ''
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = '/afs/athena.mit.edu/activity/s/sbc/web_scripts/beta/static/'
+STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = 'http://beta.sbc.scripts.mit.edu/static/'
+STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
