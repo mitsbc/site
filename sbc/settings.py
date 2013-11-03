@@ -12,9 +12,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'sql.mit.edu',                      # Or path to database file if using sqlite3.
+        'NAME': 'suma+new',                      # Or path to database file if using sqlite3.
         'OPTIONS': {
-            'read_default_file' : '/mit/sbc/.my.cnf',
+            'read_default_file' : '/afs/athena.mit.edu/activity/s/sbc/.my.cnf',
         },                    
         'PORT': '',                       # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
     }
