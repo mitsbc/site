@@ -1,11 +1,10 @@
-import os
 # Django settings for sbc project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+     ('Yasyf Mohamedali', 'yasyf@mit.edu'),
 )
 
 MANAGERS = ADMINS
@@ -13,9 +12,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'suma+new',                      # Or path to database file if using sqlite3.
+        'NAME': 'sql.mit.edu',                      # Or path to database file if using sqlite3.
         'OPTIONS': {
-            'read_default_file' : os.path.expanduser('/mit/sbc/.my.cnf'),
+            'read_default_file' : '/mit/sbc/.my.cnf',
         },                    
         'PORT': '',                       # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
     }
