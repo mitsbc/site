@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'suma+new',                      # Or path to database file if using sqlite3.
         'HOST': 'sql.mit.edu',
         'USER': 'suma',
-        'PASSWORD': open('/mit/sbc/Scripts/django/sbc/db.txt').read(),                    
+        'PASSWORD': open('/mit/sbc/Scripts/django/sbc/db.txt').read().strip(),                    
         'PORT': '',                       # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
     }
 }
