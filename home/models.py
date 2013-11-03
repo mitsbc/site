@@ -7,10 +7,10 @@ class Menu(models.Model):
 		return self.name
 
 class MenuItem(models.Model):
-	menus = models.ManyToManyField(Menu) #same item, multiple menus
+	menus = models.ManyToManyField(Menu, related_name='Menus') #same item, multiple menus
 	text = models.CharField(max_length=200)
 	link = models.URLField(max_length=200)
-	new_page = models.BooleanField()
+	new_page = models.BooleanField("Open in new page")
 	def __unicode__(self):
 		return self.text	
 
@@ -18,7 +18,7 @@ class MenuItem(models.Model):
 class SliderItem(models.Model):
 	text = models.CharField(max_length=200)
 	link = models.URLField(max_length=200)
-	new_page = models.BooleanField()
+	new_page = models.BooleanField("Open in new page")
 	image = models.ImageField(upload_to="slider_images/")
 	def __unicode__(self):
 		return self.text

@@ -1,5 +1,9 @@
 # Django settings for sbc project.
 
+import os
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -9,13 +13,14 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'suma+new',                      # Or path to database file if using sqlite3.
-        'HOST': 'sql.mit.edu',
-        'USER': 'suma',
-        'PASSWORD': open('/Users/yasyf/Dropbox/Documents/sbc/db.txt').read().strip(),                    
+        'NAME': os.environ['db_name'],                      # Or path to database file if using sqlite3.
+        'HOST': os.environ['db_host'],
+        'USER': os.environ['db_user'],
+        'PASSWORD': os.environ['db_pass'],                    
         'PORT': '',                       # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
     }
 }
@@ -49,7 +54,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = PROJECT_PATH + '/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -60,7 +65,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = PROJECT_PATH + '/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -105,8 +110,8 @@ ROOT_URLCONF = 'sbc.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'sbc.wsgi.application'
-
 TEMPLATE_DIRS = (
+    PROJECT_PATH + '/templates/'
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -121,6 +126,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'south',
+    'gunicorn',
     'home'
 )
 
