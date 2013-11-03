@@ -4,7 +4,7 @@ from django.db import models
 class Menu(models.Model):
 	name = models.CharField(max_length=200)
 	def __unicode__(self):
-	return self.name
+		return self.name
 
 class MenuItem(models.Model):
 	menus = models.ManyToManyField(Menu) #same item, multiple menus
