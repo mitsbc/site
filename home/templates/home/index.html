@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MIT Sloan Business Club</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+	<link rel="shortcut icon" href="{% static 'home/img/favicon.ico' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'home/css/960_12_col.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'home/css/jquery.bxslider.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}">
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="{% static 'home/js/html5lightbox/html5lightbox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'home/js/bxslider/jquery.bxslider.min.js' %}"></script>
+  </head>
+  <body>
+	<div class="container_12 main">
+		<div class="grid_12 menu">
+			<table>
+				<tr>
+					<td id="banner"><a href="#"><img src="{% static 'home/img/banner.png' %}" /></a></td>
+					{% for item in top_menu.menuitems.all %}
+					<td><a href="{{ item.link }}">{{ item.text }}</a></td>
+					{% endfor %}
+				</tr>
+			</table>
+		</div>
+		<hr />
+		<div class="clear"></div>
+		<div class="grid_12 featurebar left">
+			<h1>Upcoming Events</h1>
+			<br />
+			<ul class="bxSlider">
+				{% for item in slider_items %}
+				<li><img src="{{ item.image.url }}" height="{{ item.img_height }}" width="{{ item.img_width }}" alt="{{ item.text }}"/></li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div class="grid_4 widget left">
+			<article>
+				<h1>{{ left_widget.title }}</h1>
+				<p class="video"><a href="http://www.youtube.com/watch?v=-V3VtEpR4M8" class="html5lightbox" title="MIT Sloan Business Club">
+					<img src="{% static 'home/img/trans.png' %}" alt="Click to learn more about SBC!"></a>
+				</p>
+				<p>{{ left_widget.contents|safe }}</p>
+			</article>
+		</div>
+		<div class="grid_4 widget left right">
+			<article>
+				<h1>Calendar</h1>
+				<p />
+				<div id="calendar">
+					<table>
+						{% for item in calendar_items %}
+							<tr><td><a href="{{ item.link }}">{{ item.name }}</a>
+								<br />
+								{{ item.time|date:"f A \o\\n D N d" }} @ {{ item.location }}</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+			</article>
+		</div>
+		<div class="grid_4 widget right">
+			<article>
+				<h1>{{ right_widget.title }}</h1>
+				<p>{{ right_widget.contents|safe }}</p>
+				<p><form><input type="text" placeholder="your-email@mit.edu"><input type="submit" value="" class="subscribe"></form></p>				
+				<br />
+				<p style="text-align:center;"><a href="https://www.facebook.com/MITsbc"><img src="{% static 'home/img/FB-f-Logo__blue_50.png' %}" /></a></p>
+				<p style="text-align:center;">Follow us on Facebook!</p>
+			</article>
+		</div>
+		<div class="clear"></div>
+		<hr />
+		<div class="grid_12 footer">
+			<p id="copyright">&copy; 2013 <span onclick="window.open('http://www.yasyf.com');">Yasyf Mohamedali</span>, Brendan Chang &amp; MIT SBC</p>
+		</div>
+    </div>
+    <script type="text/javascript">
+$( 'document' ).ready(function() {
+	$( '.bxSlider' ).bxSlider({
+		slideWidth: 960
+	});
+});
+    </script>
+  </body>
+</html>
+<!-- SBC web development by Yasyf Mohamedali (http://www.yasyf.com). Original design by Brendan Chang. -->

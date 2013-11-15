@@ -1,11 +1,15 @@
 from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.shortcuts import render
+import datetime
+from django.utils import timezone
 
-from home.models import Menu,MenuItem,Widget,SliderItem
+from home.models import Menu,MenuItem,Widget,SliderItem,CalendarItem
 
 def index(request):
-	template = loader.get_template('home/index.html')
-	context = RequestContext(request, {
-		'test': "db var",
-	})
-	return HttpResponse(template.render(context))
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	context['slider_items'] =  SliderItem.objects.all()
+	context['calendar_items'] =  CalendarItem.objects.all().order_by('time').exclude(time__lt=timezone.now())[:3]
+	context['left_widget'] =  Widget.objects.get(name="left")
+	context['right_widget'] =  Widget.objects.get(name="right")
+	return render(request, 'home/index.html', context)

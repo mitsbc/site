@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.template import defaultfilters
 
 # Create your models here.
 class Menu(models.Model):
@@ -7,7 +9,7 @@ class Menu(models.Model):
 		return self.name
 
 class MenuItem(models.Model):
-	menus = models.ManyToManyField(Menu, related_name='Menus') #same item, multiple menus
+	menus = models.ManyToManyField(Menu, related_name='menuitems') #same item, multiple menus
 	text = models.CharField(max_length=200)
 	link = models.URLField(max_length=200)
 	new_page = models.BooleanField("Open in new page")
@@ -17,13 +19,25 @@ class MenuItem(models.Model):
 
 class SliderItem(models.Model):
 	text = models.CharField(max_length=200)
-	link = models.URLField(max_length=200)
+	link = models.URLField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
-	image = models.ImageField(upload_to="slider_images/")
+	img_height = models.PositiveIntegerField("Slider image height")
+	img_width = models.PositiveIntegerField("Slider image width")
+	image = models.ImageField(upload_to="home/slider_images/",height_field="img_height",width_field="img_width")
 	def __unicode__(self):
 		return self.text
 
+class CalendarItem(models.Model):
+	name = models.CharField(max_length=200)
+	time = models.DateTimeField("Date and Time",default=datetime.datetime.now())
+	location = models.CharField(max_length=200)
+	link = models.URLField(max_length=200,null=True,blank=True)
+	new_page = models.BooleanField("Open in new page")
+	def __unicode__(self):
+		return "%s (%s at %s)" % (self.name,self.location, defaultfilters.date(self.time, 'fA \o\\n l F d, Y'))
+
 class Widget(models.Model):
+	name = models.CharField(max_length=200,null=True)
 	title = models.CharField(max_length=200)
 	contents = models.TextField(max_length=1000)
 	def __unicode__(self):
