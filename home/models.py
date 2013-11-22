@@ -58,6 +58,7 @@ class Member(models.Model):
 
 class MemberList(models.Model):
 	name = models.CharField(max_length=200)
-	members = models.ManyToManyField(Menu, related_name='members')
+	title = models.CharField(max_length=200,null=True,blank=True)
+	member = models.ManyToManyField(Member, related_name='member')
 	def __unicode__(self):
 		return self.name

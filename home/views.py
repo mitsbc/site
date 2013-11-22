@@ -19,7 +19,15 @@ def about(request):
 	context['top_menu'] =  Menu.objects.get(name="top")
 	return render(request, 'home/about.html', context)
 
-def members(request, list):
+def members_by_name(request, list):
 	context = {}
-	context['members'] =  MemberList.objects.get(name=list)
+	members = MemberList.objects.get(name=list)
+	context['title'] = members.title
+	context['member'] =  members.member.all()
+	return render(request, 'home/members.html', context)
+
+def members_by_year(request, year):
+	context = {}
+	context['title'] = "Class of %s" % year
+	context['member'] =  Member.objects.filter(year=year)
 	return render(request, 'home/members.html', context)

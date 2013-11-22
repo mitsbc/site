@@ -1,9 +1,21 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
-{% block title %}Who We Are{% endblock %}
+{% block title %}{{ title }} - Who We Are{% endblock %}
 {% block body %}
 <div class="grid_12 featurebar left">
-<h1>{{ list }}</h1>
-<p>{{ members }}</p>
+<h1>{{ title }}</h1>
 </div>
+{% for item in member %}
+<div  class="grid_4 {% if forloop.first %}alpha{% endif %}{% if forloop.last %}omega{% endif %}">
+	<p class="center">
+		<img src="{{ item.image.url }}" height="auto" width="150px" alt="{{ item.name }}"/>
+	</p>
+	<p class="center">
+		<a href="mailto:{{ item.email }}">{{ item.name }}</a><br />
+		{% if item.title %}<span style="font-weight: bold;font-weight: 700;">{{ item.title }}</span>{% endif %}<br />
+		{% if item.department %}{{ item.department }}{% endif %}<br />
+		{{ item.year }}<br />
+	</p>
+</div>
+{% endfor %}
 {% endblock %}

@@ -33,9 +33,9 @@ class MemberAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class MemberListAdmin(admin.ModelAdmin):
-    fields = ['name','members']
-    search_fields = ['name']
-    list_display = ['name']
+    fields = ['name','title','member']
+    search_fields = ['name','title']
+    list_display = ['name','title']
 
 
 

@@ -7,8 +7,8 @@ body {
 	padding: 0;
 	margin: 0;
 	background-color: #FFFFFF;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Lato", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-   	font-weight: 300;
+	font-family: "Lato", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   	font-weight: 400;
 	font-size: 13px;
 	color: #001C3D;
 	overflow-x: hidden;
@@ -21,6 +21,7 @@ a {
 	font-weight: bold;
 	color: #16385C;
 	text-decoration: none;
+	font-weight: 900;
 }
 
 a:hover {
