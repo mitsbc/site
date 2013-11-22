@@ -7,7 +7,11 @@
 		<br />
 		<ul class="bxSlider">
 			{% for item in slider_items %}
-			<li><img src="{{ item.image.url }}" height="{{ item.img_height }}" width="{{ item.img_width }}" alt="{{ item.text }}"/></li>
+			<li>
+				<a href="{{ item.link }}" {% if item.new_page %}target="_blank"{% endif %}>
+					<img src="{{ item.image.url }}" height="{{ item.img_height }}" width="{{ item.img_width }}" alt="{{ item.text }}"/>
+				</a>
+			</li>
 			{% endfor %}
 		</ul>
 	</div>
