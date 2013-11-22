@@ -20,7 +20,7 @@
 	<div class="grid_12 menu">
 		<table>
 			<tr>
-				<td id="banner"><a href="#"><img src="{% static 'home/img/banner.png' %}" /></a></td>
+				<td id="banner"><a href="{% url 'index' %}"><img src="{% static 'home/img/banner.png' %}" /></a></td>
 				{% for item in top_menu.menuitems.all %}
 				<td><a href="{% if item.page %}{% url item.page %}{% else %}{{ item.link }}{% endif %}">{{ item.text }}</a></td>
 				{% endfor %}

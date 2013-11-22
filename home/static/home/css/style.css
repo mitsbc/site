@@ -7,7 +7,8 @@ body {
 	padding: 0;
 	margin: 0;
 	background-color: #FFFFFF;
-	font-family: sans-serif;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   	font-weight: 300;
 	font-size: 13px;
 	color: #001C3D;
 	overflow-x: hidden;
@@ -55,8 +56,9 @@ tr {
 	width: 100%;
 }
 
-p {
-	line-height: 1.5em;
+p, li {
+	line-height: 2.0em;
+	margin-bottom: 1em;
 }
 
 .left {
@@ -65,6 +67,13 @@ p {
 
 .right {
 	padding-left: 15px;
+}
+
+.center{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .main {
