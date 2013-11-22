@@ -43,3 +43,21 @@ class Widget(models.Model):
 	contents = models.TextField(max_length=1000)
 	def __unicode__(self):
 		return self.title
+
+class Member(models.Model):
+	name = models.CharField(max_length=200)
+	title = models.CharField(max_length=200,null=True,blank=True)
+	email = models.EmailField(max_length=200)
+	department = models.CharField(max_length=200,null=True,blank=True)
+	year = models.IntegerField()
+	img_height = models.PositiveIntegerField("Image height")
+	img_width = models.PositiveIntegerField("Image width")
+	image = models.ImageField(upload_to="home/member_images/",height_field="img_height",width_field="img_width")
+	def __unicode__(self):
+		return self.name
+
+class MemberList(models.Model):
+	name = models.CharField(max_length=200)
+	members = models.ManyToManyField(Menu, related_name='members')
+	def __unicode__(self):
+		return self.name

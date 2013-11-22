@@ -3,7 +3,7 @@ from django.shortcuts import render
 import datetime
 from django.utils import timezone
 
-from home.models import Menu,MenuItem,Widget,SliderItem,CalendarItem
+from home.models import Menu,MenuItem,Widget,SliderItem,CalendarItem,Member,MemberList
 
 def index(request):
 	context = {}
@@ -18,3 +18,8 @@ def about(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	return render(request, 'home/about.html', context)
+
+def members(request, list):
+	context = {}
+	context['members'] =  MemberList.objects.get(name=list)
+	return render(request, 'home/members.html', context)
