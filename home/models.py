@@ -11,7 +11,8 @@ class Menu(models.Model):
 class MenuItem(models.Model):
 	menus = models.ManyToManyField(Menu, related_name='menuitems') #same item, multiple menus
 	text = models.CharField(max_length=200)
-	link = models.URLField(max_length=200)
+	link = models.URLField(max_length=200,null=True,blank=True)
+	page = models.CharField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
 	def __unicode__(self):
 		return self.text	

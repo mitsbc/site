@@ -106,6 +106,11 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+  'django.core.context_processors.request',
+  'django.contrib.auth.context_processors.auth',
+)
+
 ROOT_URLCONF = 'sbc.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.

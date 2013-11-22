@@ -13,3 +13,8 @@ def index(request):
 	context['left_widget'] =  Widget.objects.get(name="left")
 	context['right_widget'] =  Widget.objects.get(name="right")
 	return render(request, 'home/index.html', context)
+
+def about(request):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	return render(request, 'home/about.html', context)

@@ -6,8 +6,8 @@ class MenuItemInline(admin.TabularInline):
     extra = 3
 
 class MenuItemAdmin(admin.ModelAdmin):
-    exclude = ('menus',)
-    list_display = ('text', 'link')
+    exclude = ['menus']
+    list_display = ('text', 'link','page')
     search_fields = ['text']
 
 class MenuAdmin(admin.ModelAdmin):
