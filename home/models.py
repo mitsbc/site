@@ -63,8 +63,6 @@ class MemberList(models.Model):
 	def __unicode__(self):
 		return self.name
 
-def get_resume_path(instance, filename):
-	return "ine/resumes/{0}/{1}/{2}.pdf".format(instance.year, hashlib.md5(instance.email).hexdigest(), instance.name)
 
 class Resume(models.Model):
 	SENIOR = datetime.date.today().year
@@ -79,10 +77,65 @@ class Resume(models.Model):
 	    (SENIOR, 'Senior'),
 	)
 
+	def get_resume_path(instance, filename):
+		return "ine/resumes/{0}/{1}/{2}.pdf".format(instance.year, hashlib.md5(instance.email).hexdigest(), instance.name)
+
 	name = models.CharField(max_length=100)
 	email = models.EmailField(max_length=200)
 	year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=FRESHMAN)
 	resume = models.FileField(upload_to=get_resume_path)
+
+	def __unicode__(self):
+		return self.name
+
+class ResumeBook(models.Model):
+	SENIOR = datetime.date.today().year
+	JUNIOR = SENIOR + 1
+	SOPHOMORE = SENIOR + 2
+	FRESHMAN = SENIOR + 3
+
+	YEAR_CHOICES = (
+	    (FRESHMAN, 'Freshman'),
+	    (SOPHOMORE, 'Sophomore'),
+	    (JUNIOR, 'Junior'),
+	    (SENIOR, 'Senior'),
+	)
+
+	CONSULTING = 1
+	FINANCE = 2
+	ENGINEERING = 3
+
+	TYPE_CHOICES = (
+	    (CONSULTING, 'Consulting'),
+	    (FINANCE, 'Finance'),
+	    (ENGINEERING, 'Engineering'),
+	)
+
+	def get_book_path(instance, filename):
+		return "ine/books/{0}/{1}.pdf".format(instance._type, instance.year)
+
+	year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=FRESHMAN)
+	_type = models.IntegerField(max_length=1, choices=TYPE_CHOICES, default=CONSULTING)
+	book = models.FileField(upload_to=get_book_path)
+
+	def __unicode__(self):
+		return self.name
+
+class Company(models.Model):
+	CONSULTING = 1
+	FINANCE = 2
+	ENGINEERING = 3
+
+	TYPE_CHOICES = (
+	    (CONSULTING, 'Consulting'),
+	    (FINANCE, 'Finance'),
+	    (ENGINEERING, 'Engineering'),
+	)
+
+	name = models.CharField(max_length=100)
+	contact_name = models.CharField(max_length=100, null=True, blank=True)
+	contact_email = models.EmailField(max_length=100, null=True, blank=True)
+	_type = models.IntegerField(max_length=1, choices=TYPE_CHOICES, default=CONSULTING)
 
 	def __unicode__(self):
 		return self.name

@@ -29,6 +29,20 @@ def ine(request):
 	context["form"] = form
 	return render(request, 'home/ine.html', context)
 
+def ine_admin(request):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	context['today'] = datetime.date.today()
+	if request.method == 'POST':
+		form = ResumeDropForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			context["submitted"] = True
+	else:
+		form = ResumeDropForm()
+	context["form"] = form
+	return render(request, 'home/ine.html', context)
+
 def about(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
