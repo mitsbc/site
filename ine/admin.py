@@ -2,24 +2,24 @@ from django.contrib import admin
 from ine.models import Resume, ResumeBook, Company
 
 class ResumeAdmin(admin.ModelAdmin):
-    fields = ['name','email','year','resume']
+    fields = ['name','industry','email','year','resume']
     search_fields = ['name','email']
-    list_display = ['name','email','year']
+    list_display = ['name','industry','email','year']
 
 class ResumeBookAdmin(admin.ModelAdmin):
-    fields = ['_type','year','book']
+    fields = ['industry','year','book']
     def get_readonly_fields(self, request, obj=None):
         if obj:
-            return self.readonly_fields + ('_type','year')
+            return self.readonly_fields + ('industry','year')
         return self.readonly_fields
-    search_fields = ['_type','year']
-    list_display = ['__unicode__','_type','year']
+    search_fields = ['industry','year']
+    list_display = ['__unicode__','industry','year']
 
 class CompanyAdmin(admin.ModelAdmin):
-    fields = ['name','contact_name','contact_email','_type','_hash']
-    readonly_fields = ['_hash']
+    fields = ['name','contact_name','contact_email','industry','unique_hash']
+    readonly_fields = ['unique_hash']
     search_fields = ['name']
-    list_display = ['name','_hash', 'contact_name']
+    list_display = ['name','unique_hash', 'contact_name']
 
 admin.site.register(Resume, ResumeAdmin)
 admin.site.register(ResumeBook, ResumeBookAdmin)

@@ -5,7 +5,7 @@ import mimetypes
 class ResumeDropForm(forms.ModelForm):
 	class Meta:
 		model = Resume
-		fields = ['name', 'email', 'year', 'resume']
+		fields = ['name', 'industry','email', 'year', 'resume']
 
 	def clean_email(self):
 		if self.cleaned_data.get("email").split("@")[1].startswith("mit.edu") != True:
@@ -15,16 +15,16 @@ class ResumeDropForm(forms.ModelForm):
 		return self.cleaned_data.get("email")
 
 	def clean_resume(self):
-		if mimetypes.guess_type(self.cleaned_data.get("resume").name)[0] != "application/pdf":
+		if mimetypes.guessindustry(self.cleaned_data.get("resume").name)[0] != "application/pdf":
 			raise forms.ValidationError('You must submit your resume as a PDF.')
 		return self.cleaned_data.get("resume")
 
 class CompanyLoginForm(forms.ModelForm):
 	class Meta:
 		model = Company
-		fields = ['_hash']
+		fields = ['unique_hash']
 
-	def clean__hash(self):
-		if Company.objects.filter(_hash=self.cleaned_data.get("_hash")).count() == 0:
+	def clean_unique_hash(self):
+		if Company.objects.filter(unique_hash=self.cleaned_data.get("unique_hash")).count() == 0:
 			raise forms.ValidationError('That company identifier was not found in our records.')
-		return self.cleaned_data.get("_hash")
+		return self.cleaned_data.get("unique_hash")

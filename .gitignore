@@ -1,5 +1,7 @@
 .env
 
+sbc/media/ine
+
 # Django
 *.log
 *.pot

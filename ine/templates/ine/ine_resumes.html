@@ -1,0 +1,14 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% block title %}Internship Networking Exclusive {{ today.year }}{% endblock %}
+{% block body %}
+<div class="grid_12 featurebar left">
+<h1>Internship Networking Exclusive {{ today.year }}</h1>
+</div>
+<div class="grid_12 left">
+<h2>{{ prefix }} Resumes</h2>
+{% for resume in resumes %}
+<p><a href="{{ resume.url }}" target="_blank">{{ resume }} ({{ resume.year }} {{ resume.industry_nice }})</a></p>
+{% endfor %}
+</div>
+{% endblock %}

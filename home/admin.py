@@ -7,7 +7,7 @@ class MenuItemInline(admin.TabularInline):
 
 class MenuItemAdmin(admin.ModelAdmin):
     exclude = ['menus']
-    list_display = ['text', 'link','page']
+    list_display = ['text', 'page','link']
     search_fields = ['text']
 
 class MenuAdmin(admin.ModelAdmin):
@@ -36,7 +36,6 @@ class MemberListAdmin(admin.ModelAdmin):
     fields = ['name','title','member']
     search_fields = ['name','title']
     list_display = ['name','title']
-
 
 
 

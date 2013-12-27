@@ -19,6 +19,11 @@ def about(request):
 	context['top_menu'] =  Menu.objects.get(name="top")
 	return render(request, 'home/about.html', context)
 
+def contact(request):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	return render(request, 'home/contact.html', context)
+
 def members_by_name(request, list):
 	context = {}
 	members = MemberList.objects.get(name=list)

@@ -56,6 +56,12 @@ class Member(models.Model):
 	def __unicode__(self):
 		return self.name
 
+class Subscriber(models.Model):
+	name = models.CharField(max_length=200)
+	email = models.EmailField(max_length=200)
+	def __unicode__(self):
+		return self.name
+
 class MemberList(models.Model):
 	name = models.CharField(max_length=200)
 	title = models.CharField(max_length=200,null=True,blank=True)
