@@ -7,6 +7,9 @@
 </div>
 <div class="grid_12 left">
 <h2>Resume Drop</h2>
+{% if submitted %}
+<p>Thank you for dropping your resume. We will be in contact shortly if you are selected to participate.</p>
+{% else %}
 <p>MIT's Sloan Business Club solicits resume for its annual Internship Networking Exclusive (INE), a unique opportunity for students to network in an intimate environment with the top consulting, finance, and technology firms that are currently actively recruiting. Please use the below form to drop your resume.</p>
 <p>
 	<form enctype="multipart/form-data" action="{% url 'ine' %}" method="POST">
@@ -14,6 +17,7 @@
 		{{ form.as_p }}
 		<input type="submit" value="Submit" />
 	</form>
-</p>	
+</p>
+{% endif %}	
 </div>
 {% endblock %}

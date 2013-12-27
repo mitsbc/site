@@ -23,6 +23,7 @@ def ine(request):
 		form = ResumeDropForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
+			context["submitted"] = True
 	else:
 		form = ResumeDropForm()
 	context["form"] = form

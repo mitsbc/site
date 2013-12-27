@@ -64,7 +64,7 @@ class MemberList(models.Model):
 		return self.name
 
 def get_resume_path(instance, filename):
-	return "ine/resumes/{0}/{1}.pdf".format(datetime.date.today().year, hashlib.md5(instance.email).hexdigest())
+	return "ine/resumes/{0}/{1}/{2}.pdf".format(instance.year, hashlib.md5(instance.email).hexdigest(), instance.name)
 
 class Resume(models.Model):
 	SENIOR = datetime.date.today().year
@@ -86,7 +86,3 @@ class Resume(models.Model):
 
 	def __unicode__(self):
 		return self.name
-
-
-	def clean(self):
-		super(Resume, self).clean()
