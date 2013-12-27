@@ -87,7 +87,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'kl%-&o8s2v4jd$-bktmkh+%2#&g&o&*_qk7et2z-0=1why2_v1'
+SECRET_KEY = os.environ['sk']
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
