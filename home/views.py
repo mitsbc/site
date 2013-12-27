@@ -3,8 +3,7 @@ from django.shortcuts import render
 import datetime
 from django.utils import timezone
 
-from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, Resume
-from home.forms import ResumeDropForm
+from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList
 
 def index(request):
 	context = {}
@@ -14,34 +13,6 @@ def index(request):
 	context['left_widget'] =  Widget.objects.get(name="left")
 	context['right_widget'] =  Widget.objects.get(name="right")
 	return render(request, 'home/index.html', context)
-
-def ine(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
-	if request.method == 'POST':
-		form = ResumeDropForm(request.POST, request.FILES)
-		if form.is_valid():
-			form.save()
-			context["submitted"] = True
-	else:
-		form = ResumeDropForm()
-	context["form"] = form
-	return render(request, 'home/ine.html', context)
-
-def ine_admin(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
-	if request.method == 'POST':
-		form = ResumeDropForm(request.POST, request.FILES)
-		if form.is_valid():
-			form.save()
-			context["submitted"] = True
-	else:
-		form = ResumeDropForm()
-	context["form"] = form
-	return render(request, 'home/ine.html', context)
 
 def about(request):
 	context = {}

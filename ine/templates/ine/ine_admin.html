@@ -6,10 +6,13 @@
 <h1>Internship Networking Exclusive {{ today.year }}</h1>
 </div>
 <div class="grid_12 left">
-<h2>Resume Drop</h2>
-{% if company_id %}
-<p>//TODO: Resume Books</p>
+{% if request.session.company %}
+<h2>Resume Books for {{ company.name }}</h2>
+{% for book in books %}
+<p><a href="{{ book.url }}" target="_blank">{{ book }}</a></p>
+{% endfor %}
 {% else %}
+<h2>Sponsor Resume Books</h2>
 <p>Please enter your company identifier to view this year's resume books.</p>
 <p>
 	<form action="{% url 'ine_admin' %}" method="POST">

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Menu, MenuItem, SliderItem, Widget, CalendarItem, Member, MemberList, Resume, ResumeBook, Company
+from home.models import Menu, MenuItem, SliderItem, Widget, CalendarItem, Member, MemberList
 
 class MenuItemInline(admin.TabularInline):
     model = MenuItem.menus.through
@@ -37,21 +37,6 @@ class MemberListAdmin(admin.ModelAdmin):
     search_fields = ['name','title']
     list_display = ['name','title']
 
-class ResumeAdmin(admin.ModelAdmin):
-    fields = ['name','email','year','resume']
-    search_fields = ['name','email']
-    list_display = ['name','email','year']
-
-class ResumeBookAdmin(admin.ModelAdmin):
-    fields = ['_type','year','book']
-    search_fields = ['_type','year']
-    list_display = ['_type','year']
-
-class CompanyAdmin(admin.ModelAdmin):
-    fields = ['name','contact_name','contact_email','_type']
-    search_fields = ['name']
-    list_display = ['name','contact_name']
-
 
 
 
@@ -62,6 +47,3 @@ admin.site.register(CalendarItem, CalendarItemAdmin)
 admin.site.register(Widget, WidgetAdmin)
 admin.site.register(Member, MemberAdmin)
 admin.site.register(MemberList, MemberListAdmin)
-admin.site.register(Resume, ResumeAdmin)
-admin.site.register(ResumeBook, ResumeBookAdmin)
-admin.site.register(Company, CompanyAdmin)
