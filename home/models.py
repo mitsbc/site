@@ -1,5 +1,5 @@
 from django.db import models
-import datetime
+import datetime, hashlib
 from django.template import defaultfilters
 
 # Create your models here.
@@ -62,3 +62,31 @@ class MemberList(models.Model):
 	member = models.ManyToManyField(Member, related_name='member')
 	def __unicode__(self):
 		return self.name
+
+def get_resume_path(instance, filename):
+	return "ine/resumes/{0}/{1}.pdf".format(datetime.date.today().year, hashlib.md5(instance.email).hexdigest())
+
+class Resume(models.Model):
+	SENIOR = datetime.date.today().year
+	JUNIOR = SENIOR + 1
+	SOPHOMORE = SENIOR + 2
+	FRESHMAN = SENIOR + 3
+
+	YEAR_CHOICES = (
+	    (FRESHMAN, 'Freshman'),
+	    (SOPHOMORE, 'Sophomore'),
+	    (JUNIOR, 'Junior'),
+	    (SENIOR, 'Senior'),
+	)
+
+	name = models.CharField(max_length=100)
+	email = models.EmailField(max_length=200)
+	year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=FRESHMAN)
+	resume = models.FileField(upload_to=get_resume_path)
+
+	def __unicode__(self):
+		return self.name
+
+
+	def clean(self):
+		super(Resume, self).clean()

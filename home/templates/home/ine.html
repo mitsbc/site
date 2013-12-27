@@ -1,0 +1,19 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% block title %}Internship Networking Exclusive {{ today.year }}{% endblock %}
+{% block body %}
+<div class="grid_12 featurebar left">
+<h1>Internship Networking Exclusive {{ today.year }}</h1>
+</div>
+<div class="grid_12 left">
+<h2>Resume Drop</h2>
+<p>MIT's Sloan Business Club solicits resume for its annual Internship Networking Exclusive (INE), a unique opportunity for students to network in an intimate environment with the top consulting, finance, and technology firms that are currently actively recruiting. Please use the below form to drop your resume.</p>
+<p>
+	<form enctype="multipart/form-data" action="{% url 'ine' %}" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" />
+	</form>
+</p>	
+</div>
+{% endblock %}
