@@ -13,9 +13,20 @@
 <p>MIT's Sloan Business Club solicits resume for its annual Internship Networking Exclusive (INE), a unique opportunity for students to network in an intimate environment with the top consulting, finance, and technology firms that are currently actively recruiting. Please use the below form to drop your resume.</p>
 <p>
 	<form enctype="multipart/form-data" action="{% url 'ine_drop' %}" method="POST" class="pure-form pure-form-aligned">
+		<fieldset>
 		{% csrf_token %}
-		{{ form.as_p }}
-		<input class="pure-button"  type="submit" value="Submit" />
+		{% for field in form %}
+	        <div class="pure-control-group">
+	            {{ field.errors }}
+	            {{ field.label_tag }}
+	            {{ field }}
+	        </div>
+	    {% endfor %}
+	    <br />
+	    <div class="contact-form-submit-div">
+			<input class="pure-button" type="submit" value="Submit" id="contact_submit_btn"/>
+		</div>
+		</fieldset>
 	</form>
 </p>
 {% endif %}	

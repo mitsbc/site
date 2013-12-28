@@ -16,9 +16,20 @@
 <p>Please enter your company identifier to view this year's resume books.</p>
 <p>
 	<form action="{% url 'ine_admin' %}" method="POST" class="pure-form pure-form-aligned">
+		<fieldset>
 		{% csrf_token %}
-		{{ form.as_p }}
-		<input class="pure-button"  type="submit" value="Submit" />
+		{% for field in form %}
+	        <div class="pure-control-group">
+	            {{ field.errors }}
+	            {{ field.label_tag }}
+	            {{ field }}
+	        </div>
+	    {% endfor %}
+	    <br />
+	    <div class="contact-form-submit-div">
+			<input class="pure-button" type="submit" value="Submit" id="contact_submit_btn"/>
+		</div>
+		</fieldset>
 	</form>
 </p>
 {% endif %}	
