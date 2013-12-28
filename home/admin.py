@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Menu, MenuItem, SliderItem, Widget, CalendarItem, Member, MemberList, Subscriber, ContactGroup
+from home.models import Menu, MenuItem, SliderItem, Widget, CalendarItem, Member, MemberList, Subscriber, ContactGroup, ContactMessage
 
 class MenuItemInline(admin.TabularInline):
     model = MenuItem.menus.through
@@ -33,10 +33,16 @@ class MemberAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class SubscriberAdmin(admin.ModelAdmin):
-    fields = ['name','email','subscribed']
-    list_display = ['name','email','subscribed']
-    readonly_fields = ['name','email','subscribed']
+    fields = ['name','email','date']
+    list_display = ['name','email','date']
+    readonly_fields = ['name','email','date']
     search_fields = ['name']
+
+class ContactMessageAdmin(admin.ModelAdmin):
+    fields = ['name','email','cell','group','message','date']
+    list_display = ['name','date','group']
+    readonly_fields = ['group','name','email','cell','message','date']
+    search_fields = ['name','email']
 
 class ContactGroupAdmin(admin.ModelAdmin):
     fields = ['name','email','description']
@@ -57,5 +63,6 @@ admin.site.register(CalendarItem, CalendarItemAdmin)
 admin.site.register(Widget, WidgetAdmin)
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Subscriber, SubscriberAdmin)
+admin.site.register(ContactMessage, ContactMessageAdmin)
 admin.site.register(ContactGroup, ContactGroupAdmin)
 admin.site.register(MemberList, MemberListAdmin)

@@ -9,9 +9,12 @@
 {% endblock %}
 {% block body %}
 <div class="grid_12 featurebar left">
-<h1>Contact Us</h1>
+<h1>Subscribe</h1>
 </div>
 <div class="grid_12 left">
+{% if subscribed %}
+<p>{{ name }} &lt;{{ email }}&gt; has successfully been subcribed to the sbc-web-subscribe mailing list.</p>
+{% else %}
 <p>Sign up to the SBC mailing list to get periodic updates on club activities and events.</p>
 <form action="{% url 'subscribe' %}" method="POST" class="pure-form pure-form-aligned">
 	<fieldset>
@@ -29,11 +32,7 @@
 	</div>
 	 </fieldset>
 </form>
+{% endif %}
 <br />
 </div>
-<script type="text/javascript">
-        $(function() {
-                $('#id_message').redactor();
-        });
-</script>
 {% endblock %}

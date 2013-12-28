@@ -1,6 +1,6 @@
 # Django settings for sbc project.
 
-import os
+import os, base64
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
@@ -167,3 +167,9 @@ LOGGING = {
         },
     }
 }
+
+EMAIL_HOST = os.environ['email_host']
+EMAIL_HOST_USER = os.environ['email_user']
+EMAIL_HOST_PASSWORD = base64.b64decode(os.environ['email_pass'])
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

@@ -65,13 +65,35 @@ class ContactGroup(Person):
 		return self.description
 
 class Subscriber(Person):
-	subscribed = models.DateField("Subscribed On",auto_now_add=True)
+	date = models.DateField("Subscribed On",auto_now_add=True)
+
+	def save(self, *args, **kwargs):
+		import ssh
+		ssh.subscribe(self.email)
+		super(Subscriber, self).save()
 
 class ContactMessage(Person):
-	group =  models.ForeignKey(ContactGroup,verbose_name="Department")
+	group =  models.ForeignKey(ContactGroup,verbose_name="Department",default=ContactGroup.objects.get(name="Exec").pk)
 	cell = models.CharField("Phone Number",max_length=200,blank=True,null=True)
 	message = models.TextField()
 	subscribe = models.BooleanField("Subscribe To List", default=True)
+	date = models.DateField("Contacted On",auto_now_add=True)
+
+	def save(self, *args, **kwargs):
+		from django.core.mail import EmailMultiAlternatives
+		import html
+
+		subject = 'MIT SBC Inquiry from ' + self.name
+		from_email = self.email
+		to_email = self.group.email
+		html_body = self.message
+		text_body = html.strip_tags(html_body)
+		msg = EmailMultiAlternatives(subject, text_body, from_email, [to_email])
+		msg.attach_alternative(html_body, "text/html")
+		msg.send()
+		if self.subscribe and Subscriber.objects.filter(email=self.email).count() == 0:
+			Subscriber.objects.create(name=self.name,email=self.email)
+		super(ContactMessage, self).save()
 
 class MemberList(models.Model):
 	name = models.CharField(max_length=200)

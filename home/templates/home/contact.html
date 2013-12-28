@@ -12,6 +12,9 @@
 <h1>Contact Us</h1>
 </div>
 <div class="grid_12 left">
+{% if submitted %}
+<p>Thank you for contacting us, {{ name }}. Your message has been received by the {{ group }} department and will be addressed promptly.</p>
+{% else %}
 <p>Please use the below form to send a message to the relevant SBC members. We will do our best to respond in a timely fashion.</p>
 <form action="{% url 'contact' %}" method="POST" class="pure-form pure-form-aligned">
 	<fieldset>
@@ -33,11 +36,12 @@
 	</div>
 	 </fieldset>
 </form>
-<br />
-</div>
 <script type="text/javascript">
         $(function() {
                 $('#id_message').redactor();
         });
 </script>
+{% endif %}
+<br />
+</div>
 {% endblock %}

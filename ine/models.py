@@ -54,7 +54,7 @@ class Resume(models.Model):
 	def __unicode__(self):
 		return self.name
 
-	def save(self):
+	def save(self, *args, **kwargs):
 		self.unique_hash = hashlib.sha1("SBC"+self.email).hexdigest()
 		super(Resume, self).save()
 
@@ -92,7 +92,7 @@ class Company(models.Model):
 	industry = models.IntegerField(max_length=1, choices=TYPE_CHOICES, default=CONSULTING, verbose_name="Industry")
 	unique_hash = models.CharField(max_length=100, verbose_name="Company Identifier")
 
-	def save(self):
+	def save(self, *args, **kwargs):
 		self.unique_hash = hashlib.sha1("INE"+self.name+str(random.randint(0,100))).hexdigest()
 		super(Company, self).save()
 

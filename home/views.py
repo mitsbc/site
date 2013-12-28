@@ -3,7 +3,7 @@ from django.shortcuts import render
 import datetime
 from django.utils import timezone
 
-from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup
+from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, Subscriber
 from home.forms import SubscriberForm, ContactMessageForm
 
 def index(request):
@@ -28,6 +28,9 @@ def contact(request):
 		form = ContactMessageForm(request.POST)
 		if form.is_valid():
 			form.save()
+			context["submitted"] = True
+			context["name"] = form.cleaned_data.get("name")
+			context["group"] = str(form.cleaned_data.get("group"))
 	else:
 		form = ContactMessageForm()
 	context["form"] = form
@@ -40,8 +43,9 @@ def subscribe(request):
 		form = SubscriberForm(request.POST)
 		if form.is_valid():
 			form.save()
-			import ssh
-			ssh.subscribe(form.cleaned_data.get("email"))
+			context["subscribed"] = True
+			context["email"] = form.cleaned_data.get("email")
+			context["name"] = form.cleaned_data.get("name")
 	else:
 		form = SubscriberForm()
 	context["form"] = form
