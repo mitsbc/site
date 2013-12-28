@@ -241,5 +241,17 @@ ul.errorlist{
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
+	margin-left: 9%;
 	color: red;
+}
+.contact-form-message-div{
+	margin-left: 9%;
+	width: 80%;
+}
+.contact-form-submit-div{
+	margin-left: 9%;
+}
+
+select { 
+    width:12em; 
 }

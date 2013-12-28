@@ -2,7 +2,14 @@ from django.db import models
 import datetime
 from django.template import defaultfilters
 
-# Create your models here.
+class Person(models.Model):
+	name = models.CharField(max_length=200)
+	email = models.EmailField(max_length=200)
+	class Meta:
+		abstract = True
+	def __unicode__(self):
+		return self.name
+
 class Menu(models.Model):
 	name = models.CharField(max_length=200)
 	def __unicode__(self):
@@ -44,23 +51,27 @@ class Widget(models.Model):
 	def __unicode__(self):
 		return self.title
 
-class Member(models.Model):
-	name = models.CharField(max_length=200)
+class Member(Person):
 	title = models.CharField(max_length=200,null=True,blank=True)
-	email = models.EmailField(max_length=200)
 	department = models.CharField(max_length=200,null=True,blank=True)
 	year = models.IntegerField()
 	img_height = models.PositiveIntegerField("Image height")
 	img_width = models.PositiveIntegerField("Image width")
 	image = models.ImageField(upload_to="home/member_images/",height_field="img_height",width_field="img_width")
-	def __unicode__(self):
-		return self.name
 
-class Subscriber(models.Model):
-	name = models.CharField(max_length=200)
-	email = models.EmailField(max_length=200)
+class ContactGroup(Person):
+	description = models.CharField(max_length=200)
 	def __unicode__(self):
-		return self.name
+		return self.description
+
+class Subscriber(Person):
+	subscribed = models.DateField("Subscribed On",auto_now_add=True)
+
+class ContactMessage(Person):
+	group =  models.ForeignKey(ContactGroup,verbose_name="Department")
+	cell = models.CharField("Phone Number",max_length=200,blank=True,null=True)
+	message = models.TextField()
+	subscribe = models.BooleanField("Subscribe To List", default=True)
 
 class MemberList(models.Model):
 	name = models.CharField(max_length=200)
