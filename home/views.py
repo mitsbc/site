@@ -47,7 +47,7 @@ def subscribe(request):
 			context["email"] = form.cleaned_data.get("email")
 			context["name"] = form.cleaned_data.get("name")
 	else:
-		form = SubscriberForm()
+		form = SubscriberForm(initial={'email': request.GET.get('email')})
 	context["form"] = form
 	return render(request, 'home/subscribe.html', context)
 

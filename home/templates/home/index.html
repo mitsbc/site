@@ -48,7 +48,7 @@
 		<article>
 			<h1>{{ right_widget.title }}</h1>
 			<p>{{ right_widget.contents|safe }}</p>
-			<p><form><input type="text" placeholder="your-email@mit.edu"><input type="submit" value="" class="subscribe"></form></p>				
+			<p><form action="{% url 'subscribe' %}" method="GET"><input type="text" name="email" placeholder="you@mit.edu"><input type="submit" value="" class="subscribe"></form></p>				
 			<br />
 			<p style="text-align:center;"><a href="https://www.facebook.com/MITsbc"><img src="{% static 'home/img/FB-f-Logo__blue_50.png' %}" /></a></p>
 			<p style="text-align:center;">Follow us on Facebook!</p>
