@@ -14,4 +14,4 @@ class SubscriberForm(forms.ModelForm):
 class ContactMessageForm(forms.ModelForm):
     class Meta:
         model = ContactMessage
-        fields = ['group','name', 'email','cell','subscribe','message']
+        fields = ['group','name', 'email','phone','subscribe','message']
