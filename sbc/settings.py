@@ -4,7 +4,7 @@ import os, base64
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
-DEBUG = os.environ['debug']
+DEBUG = os.environ['debug'] == "True"
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

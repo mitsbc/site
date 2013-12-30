@@ -45,6 +45,7 @@ def event(request, pk):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['item'] = CalendarItem.objects.get(pk=pk)
+	context['item_end'] = context['item'].time + datetime.timedelta(hours=2)
 	return render(request, 'home/event.html', context)
 
 def contact(request):

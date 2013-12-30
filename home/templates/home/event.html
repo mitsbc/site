@@ -1,14 +1,31 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
 {% block title %}{{ item.name }}{% endblock %}
-
+{% block js %}
+  <script type="text/javascript" src="http://js.addthisevent.com/atemay.js"></script>
+{% endblock %}
 {% block body %}
+
 <div class="grid_12 featurebar left">
 <h1>{{ item.name }}</h1>
 	<div>
-		<p>{{ item.time|date:"f A \o\\n D N d" }} @ {{ item.location }}</p>
+		<p><b>Date</b>: {{ item.time|date:"l, F j \a\t h:i A" }}</p>
+		<p><b>Location</b>: {{ item.location }} (<a target="_blank" href="http://whereis.mit.edu/?go={{ item.location }}">Directions</a>)</p>
 		<p>{{ item.description }}</p>
 		{% if item.link %}<p>Link: <a href="{{ item.link }}" {% if item.new_page %}target="_blank"{% endif %}>{{ item.link }}</a></p>{% endif %}
+		<p>
+			<a href="{% if item.link %}{{ item.link }}{% else %}{% url 'event' item.pk %}{% endif %}" title="Add to Calendar" class="addthisevent">
+		    Add to Calendar
+		    <span class="_start">{{ item.time|date:"d-m-y H:i:00" }}</span>
+		    <span class="_end">{{ item_end|date:"d-m-y H:i:00" }}</span>
+		    <span class="_zonecode">15</span>
+		    <span class="_summary">{{ item.name }}</span>
+		    <span class="_description">{{ item.description }}</span>
+		    <span class="_location">MIT Campus: Building {{ item.location }}</span>
+		    <span class="_organizer">MIT SBC</span>
+		    <span class="_date_format">DD/MM/YYYY</span>
+			</a>
+		</p>
 	</div>
 </div>
 {% endblock %}

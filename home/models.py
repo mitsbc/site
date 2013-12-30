@@ -40,7 +40,7 @@ class SliderItem(models.Model):
 class CalendarItem(models.Model):
 	name = models.CharField(max_length=200)
 	time = models.DateTimeField("Date and Time",default=timezone.now())
-	location = models.CharField(max_length=200)
+	location = models.CharField("Building",max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
 	description = models.TextField()
