@@ -20,7 +20,7 @@ class SliderItemAdmin(admin.ModelAdmin):
     search_fields = ['text']
 
 class CalendarItemAdmin(admin.ModelAdmin):
-    fields = ['name','location','time','link','new_page']
+    fields = ['name','location','time','link','new_page','description']
     search_fields = ['name']
 
 class WidgetAdmin(admin.ModelAdmin):

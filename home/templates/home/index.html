@@ -36,7 +36,7 @@
 			<div id="calendar">
 				<table>
 					{% for item in calendar_items %}
-						<tr><td><a href="{{ item.link }}">{{ item.name }}</a>
+						<tr><td><a {% if item.new_page %}target="_blank"{% endif %} href="{% if item.link %}{{ item.link }}{% else %}{% url 'event' item.pk %}{% endif %}">{{ item.name }}</a>
 							<br />
 							{{ item.time|date:"f A \o\\n D N d" }} @ {{ item.location }}</td></tr>
 					{% endfor %}
@@ -48,7 +48,7 @@
 		<article>
 			<h1>{{ right_widget.title }}</h1>
 			<p>{{ right_widget.contents|safe }}</p>
-			<p><form action="{% url 'subscribe' %}" method="GET"><input type="text" name="email" class="id_email" placeholder="you@mit.edu"><input type="submit" value="" class="subscribe"></form></p>				
+			<p><form action="{% url 'subscribe' %}" method="GET"><input type="text" name="email" id="id_email" placeholder="you@mit.edu"><input type="submit" value="" class="subscribe"></form></p>				
 			<br />
 			<p style="text-align:center;"><a href="https://www.facebook.com/MITsbc"><img src="{% static 'home/img/FB-f-Logo__blue_50.png' %}" /></a></p>
 			<p style="text-align:center;">Follow us on Facebook!</p>

@@ -1,16 +1,23 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-import datetime
-from django.utils import timezone
+import datetime, json, pytz
 
 from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, Subscriber
 from home.forms import SubscriberForm, ContactMessageForm
+from django.utils import timezone
+
+def set_timezone(request):
+	if request.method == 'POST':
+		request.session['django_timezone'] = request.POST['timezone']
+	elif request.method == 'GET' and request.GET.get('timezone'):
+		request.session['django_timezone'] = request.GET.get('timezone')
+	return render(request, 'home/timezone.html', {'timezones': pytz.common_timezones})
 
 def index(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['slider_items'] =  SliderItem.objects.all()
-	context['calendar_items'] =  CalendarItem.objects.all().order_by('time').exclude(time__lt=timezone.now())[:3]
+	context['calendar_items'] =  CalendarItem.objects.order_by('time').filter(time__gt=timezone.now())[:3]
 	context['left_widget'] =  Widget.objects.get(name="left")
 	context['right_widget'] =  Widget.objects.get(name="right")
 	return render(request, 'home/index.html', context)
@@ -19,6 +26,26 @@ def about(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	return render(request, 'home/about.html', context)
+
+def events_all(request):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	context['calendar_items'] =  CalendarItem.objects.order_by('time').filter(time__gt=timezone.now())[:3]
+	return render(request, 'home/events.html', context)
+
+def events_json(request):
+	context = {}
+	calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=datetime.datetime.fromtimestamp(int(request.GET.get('start'))),time__lt=datetime.datetime.fromtimestamp(int(request.GET.get('end',''))))
+	items = []
+	for c in calendar_items:
+		items.append(c.to_dict(request)) 
+	return HttpResponse(json.dumps(items), mimetype='application/json')
+
+def event(request, pk):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	context['item'] = CalendarItem.objects.get(pk=pk)
+	return render(request, 'home/event.html', context)
 
 def contact(request):
 	context = {}

@@ -1,6 +1,8 @@
 from django.db import models
 import datetime
 from django.template import defaultfilters
+from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 class Person(models.Model):
 	name = models.CharField(max_length=200)
@@ -37,12 +39,25 @@ class SliderItem(models.Model):
 
 class CalendarItem(models.Model):
 	name = models.CharField(max_length=200)
-	time = models.DateTimeField("Date and Time",default=datetime.datetime.now())
+	time = models.DateTimeField("Date and Time",default=timezone.now())
 	location = models.CharField(max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
+	description = models.TextField()
+
+	def url(self,request):
+		return request.build_absolute_uri(reverse('event',kwargs={'pk': self.pk}))
+
+	def to_dict(self,request):
+		obj = {}
+		obj["id"] = self.pk
+		obj["title"] = self.name
+		obj["start"] = str(self.time)
+		obj["url"] = self.url(request)
+		return obj
+
 	def __unicode__(self):
-		return "%s (%s at %s)" % (self.name,self.location, defaultfilters.date(self.time, 'fA \o\\n l F d, Y'))
+		return "%s (%s at %s)" % (self.name,self.location, defaultfilters.date(timezone.localtime(self.time), 'fA \o\\n l F d, Y'))
 
 class Widget(models.Model):
 	name = models.CharField(max_length=200,null=True)

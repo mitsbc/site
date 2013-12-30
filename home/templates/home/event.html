@@ -1,0 +1,14 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block body %}
+<div class="grid_12 featurebar left">
+<h1>{{ item.name }}</h1>
+	<div>
+		<p>{{ item.time|date:"f A \o\\n D N d" }} @ {{ item.location }}</p>
+		<p>{{ item.description }}</p>
+		{% if item.link %}<p>Link: <a href="{{ item.link }}" {% if item.new_page %}target="_blank"{% endif %}>{{ item.link }}</a></p>{% endif %}
+	</div>
+</div>
+{% endblock %}
