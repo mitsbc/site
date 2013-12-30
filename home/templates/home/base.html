@@ -38,6 +38,13 @@
 		<p id="copyright">&copy; 2013 <span onclick="window.open('http://www.yasyf.com');">Yasyf Mohamedali</span> &amp; MIT SBC</p>
 	</div>
 	</div>
+	<script>
+	$.get( "https://sbc.scripts.mit.edu:444/auth/auth.py", function(data) {
+	  $(".id_email").val(data.email);
+	  $(".id_name").val(data.name);
+	  $(".id_phone").val(data.phone);
+	});
+	</script>
   </body>
 </html>
 <!-- SBC web development by Yasyf Mohamedali (http://www.yasyf.com). -->

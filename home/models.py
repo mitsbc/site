@@ -74,7 +74,7 @@ class Subscriber(Person):
 
 class ContactMessage(Person):
 	group =  models.ForeignKey(ContactGroup,verbose_name="Department",default=ContactGroup.objects.get(name="Exec").pk)
-	cell = models.CharField("Phone Number",max_length=200,blank=True,null=True)
+	phone = models.CharField("Phone Number",max_length=200,blank=True,null=True)
 	message = models.TextField()
 	subscribe = models.BooleanField("Subscribe To List", default=True)
 	date = models.DateField("Contacted On",auto_now_add=True)
