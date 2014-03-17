@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /timezone/
+Disallow: /ine/resumes/
+Disallow: /ine/book/
+Disallow: /ine/resume/
+
+Sitemap: http://mitsbc.mit.edu/sitemap.xml
