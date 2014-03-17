@@ -1,1 +1,1 @@
-web: gunicorn sbc.wsgi:application
+web: gunicorn sbc.wsgi
