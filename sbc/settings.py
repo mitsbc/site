@@ -180,6 +180,8 @@ EMAIL_USE_TLS = True
 if not DEBUG:
     AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_QUERYSTRING_AUTH = False
+    AWS_PRELOAD_METADATA = True
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     DEFAULT_FILE_STORAGE = 'sbc.s3utils.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'sbc.s3utils.StaticRootS3BotoStorage'
