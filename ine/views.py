@@ -44,6 +44,8 @@ def ine_admin(request):
 	return render(request, 'ine/ine_admin.html', context)
 
 def ine_resumes(request):
+	if request.session.get("company") == None:
+		return redirect('ine_admin')
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['today'] = datetime.date.today()
@@ -55,6 +57,8 @@ def ine_resumes(request):
 		return render(request, 'ine/resume_error.html', context)
 
 def ine_resumes_by_year(request, year):
+	if request.session.get("company") == None:
+		return redirect('ine_admin')
 	year = int(year)
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
@@ -67,6 +71,8 @@ def ine_resumes_by_year(request, year):
 		return render(request, 'ine/resume_error.html', context)
 
 def ine_resumes_by_industry(request, industry):
+	if request.session.get("company") == None:
+		return redirect('ine_admin')
 	industry = int(industry)
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
@@ -79,6 +85,8 @@ def ine_resumes_by_industry(request, industry):
 	return render(request, 'ine/ine_resumes.html', context)
 
 def book(request, industry, year):
+	if request.session.get("company") == None:
+		return redirect('ine_admin')
 	industry = int(industry)
 	year = int(year)
 	context = {}
@@ -105,6 +113,8 @@ def book(request, industry, year):
 	return render(request, 'ine/ine_error.html', context)
 
 def resume(request, year, unique_hash):
+	if request.session.get("company") == None:
+		return redirect('ine_admin')
 	year = int(year)
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")

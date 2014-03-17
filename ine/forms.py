@@ -15,7 +15,7 @@ class ResumeDropForm(forms.ModelForm):
 		return self.cleaned_data.get("email")
 
 	def clean_resume(self):
-		if mimetypes.guessindustry(self.cleaned_data.get("resume").name)[0] != "application/pdf":
+		if mimetypes.guess_type(self.cleaned_data.get("resume").name)[0] != "application/pdf":
 			raise forms.ValidationError('You must submit your resume as a PDF.')
 		return self.cleaned_data.get("resume")
 
