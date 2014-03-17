@@ -22,6 +22,11 @@ def index(request):
 	context['right_widget'] =  Widget.objects.get(name="right")
 	return render(request, 'home/index.html', context)
 
+def not_found_view(request):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	return render(request, 'home/404.html', context)
+
 def about(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
