@@ -197,11 +197,16 @@ if not DEBUG:
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_QUERYSTRING_AUTH = False
     AWS_PRELOAD_METADATA = True
+    AWS_HEADERS = {
+        'Cache-Control': 'public, max-age=86400',
+        'x-amz-acl': 'public-read',
+    }
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     DEFAULT_FILE_STORAGE = 'sbc.s3utils.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'sbc.s3utils.StaticRootS3BotoStorage'
     MEDIA_ROOT = '/media/'
     STATIC_ROOT = '/static/'
-    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL + STATIC_ROOT
-    MEDIA_URL = S3_URL + MEDIA_ROOT
+    S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    CF_URL = 'https://d2ssbkyk5x8g9g.cloudfront.net/'
+    STATIC_URL = CF_URL + STATIC_ROOT
+    MEDIA_URL = CF_URL + MEDIA_ROOT
