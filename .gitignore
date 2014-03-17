@@ -54,7 +54,7 @@ Icon
 
 #Misc
 venv
-dump.sql
+dump.sql.gz
 
 
 # Thumbnails

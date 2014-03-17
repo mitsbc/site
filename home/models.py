@@ -72,7 +72,7 @@ class Member(Person):
 	year = models.IntegerField()
 	img_height = models.PositiveIntegerField("Image height")
 	img_width = models.PositiveIntegerField("Image width")
-	image = models.ImageField(upload_to="home/member_images/",height_field="img_height",width_field="img_width")
+	image = models.ImageField(upload_to="home/member_images/",height_field="img_height",width_field="img_width",blank=True,default='home/member_images/placeholder.png')
 
 class ContactGroup(Person):
 	description = models.CharField(max_length=200)
