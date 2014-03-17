@@ -98,6 +98,7 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'sbc.middleware.EnforceHostnameMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -189,6 +190,7 @@ EMAIL_HOST_PASSWORD = base64.b64decode(os.environ['email_pass'])
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 if not DEBUG:
+    ENFORCE_HOSTNAME = 'mitsbc.mit.edu'
     AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_QUERYSTRING_AUTH = False
