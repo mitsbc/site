@@ -2,6 +2,7 @@ Collectfast==0.1.14
 Django==1.6.2
 MySQL-python==1.2.5
 PIL==1.1.7
+PyPDF2==1.20
 South==0.8.4
 boto==2.27.0
 dj-database-url==0.3.0

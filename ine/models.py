@@ -4,6 +4,7 @@ from django.template import defaultfilters
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.core.files import File
 
 SENIOR = 2014
 JUNIOR = SENIOR + 1
@@ -62,7 +63,7 @@ class ResumeBook(models.Model):
 
 	year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=FRESHMAN)
 	industry = models.IntegerField(max_length=1, choices=TYPE_CHOICES, default=CONSULTING, verbose_name="Industry")
-	book = models.FileField(upload_to=get_book_path)
+	book = models.FileField(upload_to=get_book_path,blank=True)
 
 	def url(self):
 		return reverse('book',kwargs={'industry':self.industry, 'year':self.year})
@@ -72,14 +73,24 @@ class ResumeBook(models.Model):
 
 	def clean(self):
 		super(ResumeBook, self).clean()
-		if mimetypes.guessindustry(self.book.name)[0] != "application/pdf":
+		if self.book and mimetypes.guess_type(self.book.name)[0] != "application/pdf":
 			raise ValidationError('Resume book must be a PDF.')
+
+	def save(self, *args, **kwargs):
+		if not self.book:
+			import pdf, time
+			resumes = [x.path() for x in Resume.objects.filter(year=self.year, industry=self.industry)]
+			tmpfile = "/tmp/" + str(time.time()) + ".pdf"
+			pdf.merge(resumes, tmpfile)
+			with open(tmpfile, 'r') as f:
+				self.book.save(get_book_path(self,tmpfile), File(f))
+		super(ResumeBook, self).save()
 
 	def industry_nice(self):
 		return TYPE_CHOICES[self.industry][1]
 
 	def __unicode__(self):
-		return "{0} {1} Resume Book".format(self.year, industry_nice(self))
+		return "{0} {1} Resume Book".format(self.year, self.industry_nice())
 
 class Company(models.Model):
 	
