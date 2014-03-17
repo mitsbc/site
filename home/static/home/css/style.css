@@ -193,7 +193,6 @@ input.subscribe:active {
 #calendar td {
 	border-bottom: 1px solid #DDDDDD;
 	padding: 10px 0 10px 0;
-	text-align: justify;
 }
 
 #calendar tr:first-child td {
