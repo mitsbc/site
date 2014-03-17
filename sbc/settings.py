@@ -27,9 +27,8 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-#ALLOWED_HOSTS = ['mitsbc.mit.edu','http://mitsbc.herokuapp.com/','sbc.scripts.mit.edu','mit-sbc.org','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['mitsbc.mit.edu','http://mitsbc.herokuapp.com/','sbc.scripts.mit.edu','mit-sbc.org','localhost','127.0.0.1']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-ALLOWED_HOSTS = ['*']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -136,6 +135,8 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'south',
     'gunicorn',
+    'storages',
+    'boto',
     'home',
     'ine',
 )
@@ -176,3 +177,10 @@ EMAIL_HOST_USER = os.environ['email_user']
 EMAIL_HOST_PASSWORD = base64.b64decode(os.environ['email_pass'])
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+if not DEBUG:
+ AWS_STORAGE_BUCKET_NAME = os.environ['S3_BUCKET_NAME']
+ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+ S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+ STATIC_URL = S3_URL
