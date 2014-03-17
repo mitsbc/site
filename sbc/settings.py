@@ -27,7 +27,7 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['mitsbc.mit.edu','mitsbc.herokuapp.com','sbc.scripts.mit.edu','mit-sbc.org','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['mitsbc.mit.edu','mitsbc.herokuapp.com','sbc.scripts.mit.edu','mit-sbc.org','www.mit-sbc.org','localhost','127.0.0.1']
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Local time zone for this installation. Choices can be found here:
