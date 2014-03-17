@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'storages',
     'boto',
+    'collectfast',
     'home',
     'ine',
 )
