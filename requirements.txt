@@ -12,6 +12,8 @@ gunicorn==18.0
 paramiko==1.13.0
 pycrypto==2.6.1
 pystache==0.5.3
+python-dateutil==2.2
 pytz==2014.1
+six==1.6.1
 static==1.0.2
 wsgiref==0.1.2
