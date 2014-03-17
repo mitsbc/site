@@ -173,6 +173,16 @@ LOGGING = {
     }
 }
 
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'MIT SBC',
+    'MENU': (
+        {'app': 'auth', 'label': 'Authorization', 'icon':'icon-lock'},
+        '-',
+        {'app': 'home', 'label': 'Main Site'},
+        {'app': 'ine', 'label': 'INE/Resume Drop'}
+    )
+}
+
 EMAIL_HOST = os.environ['email_host']
 EMAIL_HOST_USER = os.environ['email_user']
 EMAIL_HOST_PASSWORD = base64.b64decode(os.environ['email_pass'])
