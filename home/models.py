@@ -56,6 +56,9 @@ class CalendarItem(models.Model):
 		obj["url"] = self.url(request)
 		return obj
 
+	def get_location(self):
+		return reverse('event',kwargs={'pk': self.pk})
+
 	def __unicode__(self):
 		return "%s (%s at %s)" % (self.name,self.location, defaultfilters.date(timezone.localtime(self.time), 'fA \o\\n l F d, Y'))
 
@@ -114,5 +117,9 @@ class MemberList(models.Model):
 	name = models.CharField(max_length=200)
 	title = models.CharField(max_length=200,null=True,blank=True)
 	member = models.ManyToManyField(Member, related_name='member')
+
+	def get_location(self):
+		return reverse('members_by_name',kwargs={'list': self.name})
+
 	def __unicode__(self):
 		return self.name

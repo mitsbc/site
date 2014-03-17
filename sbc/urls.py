@@ -6,6 +6,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 admin.autodiscover()
 
+from sitemaps import *
+sitemaps = {
+	'event': CalendarItemSitemap,
+	'static': StaticViewSitemap,
+	'members_by_name': MemberListSitemap,
+	'members_by_year': MemberSitemap
+}
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'sbc.views.home', name='home'),
@@ -17,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('home.urls')),
     url(r'^', include('ine.urls')),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'home.views.not_found_view'
