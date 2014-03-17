@@ -43,6 +43,9 @@
 	</div>
 	<script>
 	$(document).ready(function() {
+	  if(window.top !== window.self){
+		  window.top.location.replace(window.self.location.href); 
+	  }
 	  $.get( "https://sbc.scripts.mit.edu:444/auth/auth.py", function(data) {
 		  $("#id_email").val(data.email);
 		  $("#id_name").val(data.name);
