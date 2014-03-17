@@ -3,7 +3,8 @@ from django.core.urlresolvers import reverse
 from home.models import CalendarItem, Member, MemberList
 
 class CalendarItemSitemap(Sitemap):
-    changefreq = "always"
+    changefreq = "daily"
+    priority = 0.9
 
     def items(self):
         return CalendarItem.objects.all()
@@ -16,6 +17,7 @@ class CalendarItemSitemap(Sitemap):
 
 class StaticViewSitemap(Sitemap):
     changefreq = 'weekly'
+    priority = 1
 
     def items(self):
         return ['about', 'contact', 'subscribe', 'events_all', 'index', 'ine_admin', 'ine_drop']
@@ -25,6 +27,7 @@ class StaticViewSitemap(Sitemap):
 
 class MemberListSitemap(Sitemap):
     changefreq = 'monthly'
+    priority = 0.8
 
     def items(self):
         return MemberList.objects.all()
@@ -34,6 +37,7 @@ class MemberListSitemap(Sitemap):
 
 class MemberSitemap(Sitemap):
     changefreq = 'monthly'
+    priority = 0.8
 
     def items(self):
     	YEAR = 2014
