@@ -1,5 +1,6 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound
+from django.shortcuts import render, get_object_or_404
+from django.template.loader import render_to_string
 import datetime, json, pytz
 
 from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, Subscriber
@@ -25,7 +26,7 @@ def index(request):
 def not_found_view(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
-	return render(request, 'home/404.html', context)
+	return HttpResponseNotFound(render_to_string('home/404.html', context))
 
 def about(request):
 	context = {}
@@ -49,7 +50,7 @@ def events_json(request):
 def event(request, pk):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
-	context['item'] = CalendarItem.objects.get(pk=pk)
+	context['item'] = get_object_or_404(CalendarItem, pk=pk)
 	context['item_end'] = context['item'].time + datetime.timedelta(hours=2)
 	return render(request, 'home/event.html', context)
 
@@ -86,7 +87,7 @@ def subscribe(request):
 
 def members_by_name(request, list):
 	context = {}
-	members = MemberList.objects.get(name=list)
+	members = get_object_or_404(MemberList, name=list)
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['title'] = members.title
 	context['member'] =  members.member.all()
