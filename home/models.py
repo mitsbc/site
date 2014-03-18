@@ -1,8 +1,9 @@
 from django.db import models
-import datetime
+import datetime, os
 from django.template import defaultfilters
 from django.core.urlresolvers import reverse
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 class Person(models.Model):
 	name = models.CharField(max_length=200)
@@ -75,7 +76,20 @@ class Member(Person):
 	year = models.IntegerField()
 	img_height = models.PositiveIntegerField("Image height")
 	img_width = models.PositiveIntegerField("Image width")
-	image = models.ImageField(upload_to="home/member_images/",height_field="img_height",width_field="img_width",default='home/member_images/placeholder.png')
+	image = models.ImageField(upload_to=get_filename,height_field="img_height",width_field="img_width",blank=True,default='home/member_images/placeholder.png')
+
+	def get_filename(instance, filename):
+		ext = filename.split('.')[-1]
+		slug = slugify(instance.name)
+		filename = ('%s.%s' % (slug, ext)).lower()
+		return filename
+
+	def save(self, *args, **kwargs):
+		if not self.image:
+			self.image.save('placeholder.png',File('home/member_images/placeholder.png'))
+		elif os.path.exists(self.image.path):
+			os.remove(self.image.path)
+		super(Member, self).save() 
 
 class ContactGroup(Person):
 	description = models.CharField(max_length=200)
