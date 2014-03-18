@@ -183,7 +183,8 @@ SUIT_CONFIG = {
         '-',
         {'app': 'home', 'label': 'Main Site'},
         {'app': 'ine', 'label': 'INE/Resume Drop'}
-    )
+    ),
+    'HEADER_TIME_FORMAT': 'h:i A'
 }
 
 EMAIL_HOST = os.environ['email_host']

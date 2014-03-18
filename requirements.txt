@@ -9,6 +9,7 @@ dj-database-url==0.3.0
 dj-static==0.0.5
 django-storages==1.1.8
 django-suit==0.2.6
+docutils==0.11
 ecdsa==0.11
 gunicorn==18.0
 paramiko==1.13.0

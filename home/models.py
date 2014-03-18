@@ -113,6 +113,12 @@ class ContactMessage(Person):
 			Subscriber.objects.create(name=self.name,email=self.email)
 		super(ContactMessage, self).save()
 
+	def get_message_html(self):
+		return self.message
+
+	get_message_html.allow_tags = True
+	get_message_html.short_description = 'Message'
+
 class MemberList(models.Model):
 	name = models.CharField(max_length=200)
 	title = models.CharField(max_length=200,null=True,blank=True)

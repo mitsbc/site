@@ -39,9 +39,9 @@ class SubscriberAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class ContactMessageAdmin(admin.ModelAdmin):
-    fields = ['name','email','phone','group','message','date']
+    fields = ['name','email','phone','group','get_message_html','date']
     list_display = ['name','date','group']
-    readonly_fields = ['group','name','email','phone','message','date']
+    readonly_fields = ['group','name','email','phone','get_message_html','date']
     search_fields = ['name','email']
 
 class ContactGroupAdmin(admin.ModelAdmin):
