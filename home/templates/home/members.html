@@ -8,7 +8,7 @@
 {% for item in member %}
 <div  class="grid_4 {% if forloop.first %}alpha{% endif %}{% if forloop.last %}omega{% endif %}">
 	<p class="center">
-		<img src="{{ item.image.url }}" height="auto" width="150px" alt="{{ item.name }}"/>
+		<img src="{{ item.image.url }}" height="225px" width="150px" alt="{{ item.name }}"/>
 	</p>
 	<p class="center">
 		<a href="mailto:{{ item.email }}">{{ item.name }}</a><br />
