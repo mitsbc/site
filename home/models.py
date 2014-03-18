@@ -1,5 +1,5 @@
 from django.db import models
-import datetime, os
+import datetime
 from django.template import defaultfilters
 from django.core.urlresolvers import reverse
 from django.utils import timezone
@@ -40,25 +40,42 @@ class SliderItem(models.Model):
 
 class CalendarItem(models.Model):
 	name = models.CharField(max_length=200)
+	slug = models.CharField(max_length=200,blank=True,null=True)
 	time = models.DateTimeField("Date and Time",default=timezone.now())
 	location = models.CharField("Building",max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
 	description = models.TextField()
+	
 
-	def url(self,request):
-		return request.build_absolute_uri(reverse('event',kwargs={'pk': self.pk}))
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(CalendarItem, self).save() 
+
+	def get_url(self, request):
+		if self.link:
+			return self.link
+		else:
+			return request.build_absolute_uri(reverse('event',kwargs={'slug': str(self.slug)}))
+
+	def get_relative_url(self):
+		if self.link:
+			return self.link
+		else:
+			return reverse('event',kwargs={'slug': str(self.slug)})
+
+	url = property(get_relative_url)
 
 	def to_dict(self,request):
 		obj = {}
 		obj["id"] = self.pk
 		obj["title"] = self.name
 		obj["start"] = str(self.time)
-		obj["url"] = self.url(request)
+		obj["url"] = self.get_url(request)
 		return obj
 
 	def get_location(self):
-		return reverse('event',kwargs={'pk': self.pk})
+		return self.get_relative_url()
 
 	def __unicode__(self):
 		return "%s (%s at %s)" % (self.name,self.location, defaultfilters.date(timezone.localtime(self.time), 'fA \o\\n l F d, Y'))
@@ -71,6 +88,12 @@ class Widget(models.Model):
 		return self.title
 
 class Member(Person):
+	def get_filename(instance, filename):
+		ext = filename.split('.')[-1]
+		slug = slugify(instance.name)
+		filename = ('%s.%s' % (slug, ext)).lower()
+		return filename
+
 	title = models.CharField(max_length=200,null=True,blank=True)
 	department = models.CharField(max_length=200,null=True,blank=True)
 	year = models.IntegerField()
@@ -78,17 +101,9 @@ class Member(Person):
 	img_width = models.PositiveIntegerField("Image width")
 	image = models.ImageField(upload_to=get_filename,height_field="img_height",width_field="img_width",blank=True,default='home/member_images/placeholder.png')
 
-	def get_filename(instance, filename):
-		ext = filename.split('.')[-1]
-		slug = slugify(instance.name)
-		filename = ('%s.%s' % (slug, ext)).lower()
-		return filename
-
 	def save(self, *args, **kwargs):
 		if not self.image:
-			self.image.save('placeholder.png',File('home/member_images/placeholder.png'))
-		elif os.path.exists(self.image.path):
-			os.remove(self.image.path)
+			self.image = 'home/member_images/placeholder.png'
 		super(Member, self).save() 
 
 class ContactGroup(Person):

@@ -32,11 +32,12 @@
 	<div class="grid_4 widget left right">
 		<article>
 			<h1>Calendar</h1>
+			<br>
 			<div id="calendar">
 				{% if calendar_items.count > 0 %}
 					<table>
 						{% for item in calendar_items %}
-							<tr><td><a {% if item.new_page %}target="_blank"{% endif %} href="{% if item.link %}{{ item.link }}{% else %}{% url 'event' item.pk %}{% endif %}">{{ item.name }}</a>
+							<tr><td><a {% if item.new_page %}target="_blank"{% endif %} href="{{ item.url }}">{{ item.name }}</a>
 								<br />
 								{{ item.time|date:"f A \o\\n D N d" }} @ {{ item.location }}</td></tr>
 						{% endfor %}

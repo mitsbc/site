@@ -22,6 +22,7 @@ class SliderItemAdmin(admin.ModelAdmin):
 class CalendarItemAdmin(admin.ModelAdmin):
     fields = ['name','location','time','link','new_page','description']
     search_fields = ['name']
+    list_display = ['name', 'slug']
 
 class WidgetAdmin(admin.ModelAdmin):
     fields = ['name','title','contents']

@@ -14,10 +14,10 @@
 <h1>Upcoming Events</h1>
 	{% for item in calendar_items %}
 		<div class="grid_4 {% if forloop.first %}alpha{% endif %}{% if forloop.last %}omega{% endif %}">
-			<p><h3><a href="{% url 'event' item.pk %}">{{ item.name }}</a></h3></p>
+			<p><h3><a href="{{ item.url }}">{{ item.name }}</a></h3></p>
 			<p><b>When:</b> {{ item.time|date:"l, F j \a\t h:i A" }}</p>
 			<p><b>Where:</b> {{ item.location }}</p>
-			<p><b>What:</b> {{ item.description|truncatewords:10 }} <a href="{% url 'event' item.pk %}">Read more</a></p>
+			<p><b>What:</b> {{ item.description|truncatewords:10 }} <a href="{{ item.url }}">Read more</a></p>
 		</div>
 	{% endfor %}
 	<div id='calendar' style='height:auto;'></div>

@@ -47,10 +47,10 @@ def events_json(request):
 		items.append(c.to_dict(request)) 
 	return HttpResponse(json.dumps(items), mimetype='application/json')
 
-def event(request, pk):
+def event(request, slug):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
-	context['item'] = get_object_or_404(CalendarItem, pk=pk)
+	context['item'] = get_object_or_404(CalendarItem, slug=slug)
 	context['item_end'] = context['item'].time + datetime.timedelta(hours=2)
 	return render(request, 'home/event.html', context)
 
