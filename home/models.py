@@ -24,12 +24,32 @@ class Menu(models.Model):
 
 class MenuItem(models.Model):
 	menus = models.ManyToManyField(Menu, related_name='menuitems') #same item, multiple menus
+	sub = models.ManyToManyField('self', related_name='subs',verbose_name="Sub-menu items", blank=True)
+	parent = models.ManyToManyField('self', related_name='parents',verbose_name="Parent menu items", blank=True)
 	text = models.CharField(max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	page = models.CharField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
+
 	def __unicode__(self):
-		return self.text	
+		return self.text
+
+	def save(self, *args, **kwargs):
+		super(MenuItem, self).save() 
+		if self.sub.count():
+			for item in self.sub.all():
+				if self not in item.parent.all():
+					item.parent.add(self)
+					item.save()
+			
+
+	def get_url(self):
+		if self.page:
+			parts = self.page.split(" ")
+			return reverse(parts[0], args=parts[1:]) if len(parts) > 1 else reverse(parts[0])
+		return self.link
+
+	url = property(get_url)
 
 
 class SliderItem(models.Model):

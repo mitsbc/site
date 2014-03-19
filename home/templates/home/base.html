@@ -2,9 +2,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>{% block title %}{% endblock %} - MIT Sloan Business Club</title>
     <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
-    <meta charset="utf-8">
+    <meta name="description" content="SBC (Sloan Business Club) is an on-campus organization at Massachusetts Institute of Technology with the purpose of connecting the MIT campus to the professional world." />
+    <meta property="og:image" content="{% static 'home/img/sbclogo.png' %}" />
     {% block meta %}{% endblock %}
 	<link rel="shortcut icon" href="{% static 'home/img/favicon.ico' %}">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400,700,900">
@@ -19,19 +21,27 @@
 	{% endif %}
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="{% static 'home/js/superfish.min.js' %}"></script>
 	{% block js %}{% endblock %}
   </head>
   <body>
   	<div class="container_12 main">
-	<div class="grid_12 menu">
-		<table>
-			<tr>
-				<td id="banner"><a href="{% url 'index' %}"><img src="{% static 'home/img/banner.png' %}" /></a></td>
-				{% for item in top_menu.menuitems.all %}
-				<td><a href="{% if item.page %}{% url item.page %}{% else %}{{ item.link }}{% endif %}">{{ item.text }}</a></td>
-				{% endfor %}
-			</tr>
-		</table>
+	<div class="grid_12 menu" style="position: relative;">
+		<a id="banner" href="{% url 'index' %}"><img src="{% static 'home/img/banner.png' %}" /></a>
+		<ul id='menu' class='menu_ul'>
+			{% for item in top_menu.menuitems.all %}
+			<li class='menu_li'>
+				<a href="{{ item.url }}">{{ item.text }}</a>
+				{% if item.sub.count > 0 %}
+				<ul class='sub_ul'>
+					{% for i in item.sub.all %}
+					<li class='sub_li'><a href="{{ i.url }}">{{ i.text }}</a></li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</li>
+			{% endfor %}
+		</ul>
 	</div>
 	<hr />
 	<div class="clear"></div>
@@ -54,6 +64,7 @@
 	</script>
 	<script>
 	$(document).ready(function() {
+	  $('#menu').superfish();
 	  if(window.top !== window.self){
 		  window.top.location.replace(window.self.location.href); 
 	  }

@@ -9,6 +9,16 @@ class MenuItemAdmin(admin.ModelAdmin):
     exclude = ['menus']
     list_display = ['text', 'page','link']
     search_fields = ['text']
+    def get_form(self, request, obj=None, **kwargs):
+        if obj:
+            if obj.parent.count() > 0:
+                self.exclude += ['sub']
+                self.readonly_fields = ['parent']
+            else:
+                self.exclude += ['parent']
+        else:
+            self.exclude += ['parent', 'sub']
+        return super(MenuItemAdmin, self).get_form(request, obj, **kwargs)
 
 class MenuAdmin(admin.ModelAdmin):
     fields = ['name']

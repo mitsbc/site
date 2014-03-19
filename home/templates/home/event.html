@@ -1,11 +1,6 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
 {% block title %}{{ item.name }}{% endblock %}
-{% block meta %}
-{% if item.slug %}
-<link rel='canonical' href="{{ item.url }}">
-{% endif %}
-{% endblock %}
 {% block js %}
   <script type="text/javascript" src="http://js.addthisevent.com/atemay.js"></script>
 {% endblock %}
