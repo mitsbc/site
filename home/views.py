@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 import datetime, json, pytz
 
-from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, Subscriber
+from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, Subscriber, BlogPost
 from home.forms import SubscriberForm, ContactMessageForm
 from django.utils import timezone
 
@@ -27,6 +27,25 @@ def not_found_view(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	return HttpResponseNotFound(render_to_string('home/404.html', context))
+
+def blog(request):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	context['posts'] =  BlogPost.objects.all()
+	return render(request, 'home/blog.html', context)
+
+def author(request, slug):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	person = get_object_or_404(Member, name=slug.replace("-"," "))
+	context['posts'] =  BlogPost.objects.filter(author=person)
+	return render(request, 'home/blog.html', context)
+
+def post(request, slug):
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	context['post'] = get_object_or_404(BlogPost, slug=slug)
+	return render(request, 'home/post.html', context)
 
 def about(request):
 	context = {}

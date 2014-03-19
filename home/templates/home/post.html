@@ -1,0 +1,9 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% block title %}{{ post.title }} - MIT SBC Blog{% endblock %}
+{% block body %}
+<div class="grid_12 featurebar left">
+<h1>MIT SBC Blog: {{ post.title }}</h1>
+</div>
+{% include 'home/_post.html' %}
+{% endblock %}

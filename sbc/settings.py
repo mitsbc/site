@@ -13,7 +13,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-import os
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -134,6 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'suit',
+    'tinymce',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'south',
@@ -185,6 +185,12 @@ SUIT_CONFIG = {
         {'app': 'ine', 'label': 'INE/Resume Drop'}
     ),
     'HEADER_TIME_FORMAT': 'h:i A'
+}
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "advanced",
+    'theme_advanced_disable' : "help,code,cleanup,anchor,styleselect",
+    'theme_advanced_buttons3' : "",
 }
 
 EMAIL_HOST = os.environ['email_host']

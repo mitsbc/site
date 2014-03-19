@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Menu, MenuItem, SliderItem, Widget, CalendarItem, Member, MemberList, Subscriber, ContactGroup, ContactMessage
+from home.models import Menu, MenuItem, SliderItem, Widget, CalendarItem, Member, MemberList, Subscriber, ContactGroup, ContactMessage, BlogPost
 
 class MenuItemInline(admin.TabularInline):
     model = MenuItem.menus.through
@@ -55,6 +55,10 @@ class MemberListAdmin(admin.ModelAdmin):
     search_fields = ['name','title']
     list_display = ['name','title']
 
+class BlogPostAdmin(admin.ModelAdmin):
+    fields = ['author','title','post']
+    list_display = ['title', 'created']
+
 
 
 admin.site.register(MenuItem, MenuItemAdmin)
@@ -67,3 +71,4 @@ admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(ContactMessage, ContactMessageAdmin)
 admin.site.register(ContactGroup, ContactGroupAdmin)
 admin.site.register(MemberList, MemberListAdmin)
+admin.site.register(BlogPost, BlogPostAdmin)

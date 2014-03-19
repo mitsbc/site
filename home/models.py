@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce.models import HTMLField
 import datetime
 from django.template import defaultfilters
 from django.core.urlresolvers import reverse
@@ -40,7 +41,7 @@ class SliderItem(models.Model):
 
 class CalendarItem(models.Model):
 	name = models.CharField(max_length=200)
-	slug = models.CharField(max_length=200,blank=True,null=True)
+	slug = models.SlugField(max_length=200)
 	time = models.DateTimeField("Date and Time",default=timezone.now())
 	location = models.CharField("Building",max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
@@ -101,6 +102,11 @@ class Member(Person):
 	img_width = models.PositiveIntegerField("Image width")
 	image = models.ImageField(upload_to=get_filename,height_field="img_height",width_field="img_width",blank=True,default='home/member_images/placeholder.png')
 
+	def get_slug(self):
+		return slugify(self.name)
+
+	slug = property(get_slug)
+
 	def save(self, *args, **kwargs):
 		if not self.image:
 			self.image = 'home/member_images/placeholder.png'
@@ -158,3 +164,23 @@ class MemberList(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
+class BlogPost(models.Model):
+	title = models.CharField(max_length=200)
+	post = HTMLField()
+	author = models.ForeignKey(Member)
+	slug = models.SlugField(max_length=200)
+	created = models.DateTimeField(auto_now_add=True)
+	modified = models.DateTimeField(auto_now=True)
+
+	class Meta:
+		ordering = ['-created']
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.title)
+		super(BlogPost, self).save() 
+
+	def get_post_html(self):
+		return self.post
+
+	get_post_html.allow_tags = True
