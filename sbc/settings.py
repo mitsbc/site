@@ -193,6 +193,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_buttons3' : "",
 }
 
+STATIC_VERSION = 1
+
 EMAIL_HOST = os.environ['email_host']
 EMAIL_HOST_USER = os.environ['email_user']
 EMAIL_HOST_PASSWORD = base64.b64decode(os.environ['email_pass'])

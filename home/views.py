@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
@@ -7,6 +8,12 @@ from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member
 from home.forms import SubscriberForm, ContactMessageForm
 from django.utils import timezone
 
+def preprocess_context():
+	context = {}
+	context['top_menu'] =  Menu.objects.get(name="top")
+	context['STATIC_VERSION'] = settings.STATIC_VERSION
+	return context
+
 def set_timezone(request):
 	if request.method == 'POST':
 		request.session['django_timezone'] = request.POST['timezone']
@@ -15,8 +22,7 @@ def set_timezone(request):
 	return render(request, 'home/timezone.html', {'timezones': pytz.common_timezones})
 
 def index(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	context['slider_items'] =  SliderItem.objects.all()
 	context['calendar_items'] =  CalendarItem.objects.order_by('time').filter(time__gt=timezone.now())[:3]
 	context['left_widget'] =  Widget.objects.get(name="left")
