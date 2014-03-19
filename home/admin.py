@@ -8,16 +8,14 @@ class MenuItemInline(admin.TabularInline):
 class MenuItemAdmin(admin.ModelAdmin):
     exclude = ['menus']
     list_display = ['text', 'page','link']
-    search_fields = ['text']
+    search_fields = ['text', 'parent']
     def get_form(self, request, obj=None, **kwargs):
-        if obj:
-            if obj.parent:
-                self.exclude += ['sub']
-                self.readonly_fields = ['parent']
-            else:
-                self.exclude += ['parent']
+        if obj and MenuItem.objects.filter(parent=obj).count() > 0:
+            self.readonly_fields = ['children']
+            self.exclude = ['parent']
         else:
-            self.exclude += ['parent', 'sub']
+            self.readonly_fields = []
+            self.exclude = ['menus']
         return super(MenuItemAdmin, self).get_form(request, obj, **kwargs)
 
 class MenuAdmin(admin.ModelAdmin):

@@ -24,8 +24,7 @@ class Menu(models.Model):
 
 class MenuItem(models.Model):
 	menus = models.ManyToManyField(Menu, related_name='menuitems') #same item, multiple menus
-	sub = models.ManyToManyField('self', related_name='subs',verbose_name="Sub-menu items", blank=True)
-	parent = models.ForeignKey('self', related_name='parents',verbose_name="Parent menu item", blank=True)
+	parent = models.ForeignKey('self', related_name='parents',verbose_name="Parent menu item", blank=True,null=True)
 	text = models.CharField(max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	page = models.CharField(max_length=200,null=True,blank=True)
@@ -34,14 +33,11 @@ class MenuItem(models.Model):
 	def __unicode__(self):
 		return self.text
 
-	def save(self, *args, **kwargs):
-		super(MenuItem, self).save() 
-		if self.sub.count():
-			for item in self.sub.all():
-				if self != item.parent:
-					item.parent = self
-					item.save()
-			
+	def children(self):
+		return ', '.join([str(x) for x in MenuItem.objects.filter(parent=self)])
+
+	def get_children_objects(self):
+		return MenuItem.objects.filter(parent=self)
 
 	def get_url(self):
 		if self.page:
@@ -50,6 +46,7 @@ class MenuItem(models.Model):
 		return self.link
 
 	url = property(get_url)
+	children_objects = property(get_children_objects)
 
 
 class SliderItem(models.Model):

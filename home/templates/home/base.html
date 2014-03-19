@@ -32,9 +32,9 @@
 			{% for item in top_menu.menuitems.all %}
 			<li class='menu_li'>
 				<a href="{{ item.url }}">{{ item.text }}</a>
-				{% if item.sub.count > 0 %}
+				{% if item.children_objects %}
 				<ul class='sub_ul'>
-					{% for i in item.sub.all %}
+					{% for i in item.children_objects %}
 					<li class='sub_li'><a href="{{ i.url }}">{{ i.text }}</a></li>
 					{% endfor %}
 				</ul>

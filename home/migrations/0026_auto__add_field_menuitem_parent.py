@@ -8,19 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding M2M table for field parent on 'MenuItem'
-        m2m_table_name = db.shorten_name(u'home_menuitem_parent')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('from_menuitem', models.ForeignKey(orm[u'home.menuitem'], null=False)),
-            ('to_menuitem', models.ForeignKey(orm[u'home.menuitem'], null=False))
-        ))
-        db.create_unique(m2m_table_name, ['from_menuitem_id', 'to_menuitem_id'])
+        # Adding field 'MenuItem.parent'
+        db.add_column(u'home_menuitem', 'parent',
+                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='parents', null=True, to=orm['home.MenuItem']),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Removing M2M table for field parent on 'MenuItem'
-        db.delete_table(db.shorten_name(u'home_menuitem_parent'))
+        # Deleting field 'MenuItem.parent'
+        db.delete_column(u'home_menuitem', 'parent_id')
 
 
     models = {
@@ -94,8 +90,7 @@ class Migration(SchemaMigration):
             'menus': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'menuitems'", 'symmetrical': 'False', 'to': u"orm['home.Menu']"}),
             'new_page': ('django.db.models.fields.BooleanField', [], {}),
             'page': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'parent': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'parent_rel_+'", 'blank': 'True', 'to': u"orm['home.MenuItem']"}),
-            'sub': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'sub_rel_+'", 'blank': 'True', 'to': u"orm['home.MenuItem']"}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'parents'", 'null': 'True', 'to': u"orm['home.MenuItem']"}),
             'text': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
         u'home.slideritem': {
