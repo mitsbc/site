@@ -25,7 +25,7 @@ class Menu(models.Model):
 class MenuItem(models.Model):
 	menus = models.ManyToManyField(Menu, related_name='menuitems') #same item, multiple menus
 	sub = models.ManyToManyField('self', related_name='subs',verbose_name="Sub-menu items", blank=True)
-	parent = models.ManyToManyField('self', related_name='parents',verbose_name="Parent menu items", blank=True)
+	parent = models.ForeignKey('self', related_name='parents',verbose_name="Parent menu item", blank=True)
 	text = models.CharField(max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	page = models.CharField(max_length=200,null=True,blank=True)
@@ -38,8 +38,8 @@ class MenuItem(models.Model):
 		super(MenuItem, self).save() 
 		if self.sub.count():
 			for item in self.sub.all():
-				if self not in item.parent.all():
-					item.parent.add(self)
+				if self != item.parent:
+					item.parent = self
 					item.save()
 			
 
