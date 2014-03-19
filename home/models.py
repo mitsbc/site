@@ -9,8 +9,11 @@ from django.template.defaultfilters import slugify
 class Person(models.Model):
 	name = models.CharField(max_length=200)
 	email = models.EmailField(max_length=200)
+
 	class Meta:
 		abstract = True
+		ordering = ['name']
+
 	def __unicode__(self):
 		return self.name
 
