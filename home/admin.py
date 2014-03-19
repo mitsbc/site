@@ -11,7 +11,7 @@ class MenuItemAdmin(admin.ModelAdmin):
     search_fields = ['text']
     def get_form(self, request, obj=None, **kwargs):
         if obj:
-            if obj.parent.count() > 0:
+            if obj.parent:
                 self.exclude += ['sub']
                 self.readonly_fields = ['parent']
             else:
