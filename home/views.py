@@ -66,8 +66,11 @@ def events_all(request):
 
 def events_json(request):
 	context = {}
-	calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=datetime.datetime.fromtimestamp(int(request.GET.get('start'))),time__lt=datetime.datetime.fromtimestamp(int(request.GET.get('end',''))))
 	items = []
+	try:
+		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=datetime.datetime.fromtimestamp(int(float(request.GET.get('start')))),time__lt=datetime.datetime.fromtimestamp(int(float(request.GET.get('end','')))))
+	except TypeError:
+		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=timezone.now(),time__lt=timezone.now() + datetime.datetime.timedelta(months=1))
 	for c in calendar_items:
 		items.append(c.to_dict(request)) 
 	return HttpResponse(json.dumps(items), mimetype='application/json')
