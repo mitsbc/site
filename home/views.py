@@ -113,12 +113,20 @@ def subscribe(request):
 	context["form"] = form
 	return render(request, 'home/subscribe.html', context)
 
-def members_by_name(request, list):
+def custom_exec_sort(title):
+	ranking = {'president': 0, 'co-president': 1, 'vice president': 2, 'md of': 3}
+	if 'md of' in title:
+		title = 'md of'
+	return ranking[title] if title in ranking else len(ranking)
+
+def members_by_name(request, name):
 	context = {}
-	members = get_object_or_404(MemberList, name=list)
+	members = get_object_or_404(MemberList, name=name)
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['title'] = members.title
 	context['member'] =  members.member.all()
+	if name == 'exec':
+		context['member'] = list(sorted(context['member'], key=lambda x: custom_exec_sort(x.title.lower())))
 	return render(request, 'home/members.html', context)
 
 def members_by_year(request, year):
