@@ -180,7 +180,7 @@ class MemberList(models.Model):
 	member = models.ManyToManyField(Member, related_name='member')
 
 	def get_location(self):
-		return reverse('members_by_name',kwargs={'list': self.name})
+		return reverse('members_by_name',kwargs={'name': self.name})
 
 	def __unicode__(self):
 		return self.name
