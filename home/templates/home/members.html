@@ -11,10 +11,14 @@
 		<img src="{{ item.image.url }}?v={{ STATIC_VERSION }}" height="auto" width="150px" alt="{{ item.name }}" style="max-height: 225px;"/>
 	</p>
 	<p class="center">
-		<a href="mailto:{{ item.email }}">{{ item.name }}</a><br />
-		{% if item.title %}<span style="font-weight: bold;font-weight: 700;">{{ item.title }}</span>{% endif %}<br />
-		{% if item.department %}{{ item.department }}{% endif %}<br />
-		{{ item.year }}<br />
+		{% if item.name %}<a href="mailto:{{ item.email }}">{{ item.name }}</a><br>{% endif %}
+		{% if item.title %}<span style="font-weight: bold;font-weight: 700;">{{ item.title }}</span><br>{% endif %}
+		{% if item.department %}{{ item.department }}<br>{% endif %}
+		{% if item.year %}{{ item.year }}<br>{% endif %}
+		{% load br_len %}
+		{% for break in item|br_len %}
+			<br>
+		{% endfor %}
 	</p>
 </div>
 {% endfor %}

@@ -8,6 +8,7 @@ from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member
 from home.forms import SubscriberForm, ContactMessageForm
 from django.utils import timezone
 
+
 def preprocess_context():
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
