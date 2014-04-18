@@ -21,6 +21,7 @@
 	{% endif %}
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
 	<script type="text/javascript" src="{% static 'home/js/superfish.min.js' %}?v={{ STATIC_VERSION }}"></script>
 	{% block js %}{% endblock %}
   </head>
@@ -68,13 +69,29 @@
 	  if(window.top !== window.self){
 		  window.top.location.replace(window.self.location.href); 
 	  }
-	  $.get( "https://sbc.scripts.mit.edu:444/auth/auth.py", function(data) {
-		  $("#id_email").val(data.email);
+	  if ($.cookie('id_email') == undefined || $.cookie('id_name') == undefined || $.cookie('id_phone') == undefined) {
+	  	$.get( "https://sbc.scripts.mit.edu:444/auth/auth.py", function(data) {
+	  	  $.cookie('id_email', data.email);
+	  	  $.cookie('id_name', data.name);
+	  	  $.cookie('id_phone', data.phone);
+	  	  $("#id_email").val(data.email);
 		  $("#id_name").val(data.name);
 		  $("#id_phone").val(data.phone);
 		  ga('send', 'event', 'view', 'user', data.email);
 		  ga('set', '&uid', data.email);
 		});
+	  }
+	  else {
+	  	  email = $.cookie('id_email');
+		  name = $.cookie('id_name');
+		  phone = $.cookie('id_phone');
+	  	  $("#id_email").val(email);
+		  $("#id_name").val(name);
+		  $("#id_phone").val(phone);
+		  ga('send', 'event', 'view', 'user', email);
+		  ga('set', '&uid', email);
+	  }
+	  
 	  {% if not request.session.django_timezone %}
 	  $.get("{% url 'set_timezone' %}?timezone="+encodeURIComponent(jstz.determine().name()));
 	  {% endif %}
