@@ -96,7 +96,7 @@ class CalendarItem(models.Model):
 		return obj
 
 	def get_location(self):
-		return self.get_relative_url()
+		return reverse('event',kwargs={'slug': str(self.slug)})
 
 	def __unicode__(self):
 		return "%s (%s at %s)" % (self.name,self.location, defaultfilters.date(timezone.localtime(self.time), 'fA \o\\n l F d, Y'))
