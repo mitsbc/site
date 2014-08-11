@@ -24,7 +24,7 @@ class MenuAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class SliderItemAdmin(admin.ModelAdmin):
-    fields = ['text','link','image','new_page']
+    fields = ['text','link','image','new_page', 'order']
     search_fields = ['text']
 
 class CalendarItemAdmin(admin.ModelAdmin):
