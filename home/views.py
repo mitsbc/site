@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 import datetime, json, pytz
 
-from home.models import Menu, MenuItem, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, Subscriber, BlogPost
+from home.models import Menu, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, BlogPost
 from home.forms import SubscriberForm, ContactMessageForm
 from django.utils import timezone
 
@@ -66,14 +66,13 @@ def events_all(request):
 	return render(request, 'home/events.html', context)
 
 def events_json(request):
-	context = {}
 	items = []
 	try:
 		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=datetime.datetime.fromtimestamp(int(float(request.GET.get('start')))),time__lt=datetime.datetime.fromtimestamp(int(float(request.GET.get('end','')))))
 	except TypeError:
 		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=timezone.now(),time__lt=timezone.now() + datetime.timedelta(weeks=4))
 	for c in calendar_items:
-		items.append(c.to_dict(request)) 
+		items.append(c.to_dict(request))
 	return HttpResponse(json.dumps(items), mimetype='application/json')
 
 def event(request, slug):

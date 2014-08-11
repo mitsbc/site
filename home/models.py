@@ -56,8 +56,11 @@ class SliderItem(models.Model):
 	img_height = models.PositiveIntegerField("Slider image height")
 	img_width = models.PositiveIntegerField("Slider image width")
 	image = models.ImageField(upload_to="home/slider_images/",height_field="img_height",width_field="img_width")
+	order = models.PositiveIntegerField(null=True,blank=True)
 	def __unicode__(self):
 		return self.text
+	class Meta:
+		ordering = ['-order']
 
 class CalendarItem(models.Model):
 	name = models.CharField(max_length=200)
@@ -67,11 +70,11 @@ class CalendarItem(models.Model):
 	link = models.URLField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
 	description = models.TextField()
-	
+
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
-		super(CalendarItem, self).save() 
+		super(CalendarItem, self).save()
 
 	def get_url(self, request):
 		if self.link:
@@ -130,7 +133,7 @@ class Member(Person):
 	def save(self, *args, **kwargs):
 		if not self.image:
 			self.image = 'home/member_images/placeholder.png'
-		super(Member, self).save() 
+		super(Member, self).save()
 
 class ContactGroup(Person):
 	description = models.CharField(max_length=200)
@@ -198,7 +201,7 @@ class BlogPost(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.title)
-		super(BlogPost, self).save() 
+		super(BlogPost, self).save()
 
 	def get_post_html(self):
 		return self.post
