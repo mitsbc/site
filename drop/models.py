@@ -1,5 +1,5 @@
 from django.db import models
-import hashlib, random, mimetypes, datetime
+import hashlib, random, mimetypes, datetime, requests, os, errno
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -30,6 +30,15 @@ TYPE_CHOICES = (
     (FINANCE, 'Finance'),
     (ENGINEERING, 'Engineering'),
 )
+
+def mkdir_p(path):
+  try:
+    os.makedirs(path)
+  except OSError as exc: # Python >2.5
+    if exc.errno == errno.EEXIST and os.path.isdir(path):
+      pass
+    else:
+    	raise
 
 def get_resume_path(instance, filename):
 	return "drop/resumes/{0}/{1}/{2}.pdf".format(instance.year, hashlib.sha1("SBC"+instance.email).hexdigest(), instance.name)
@@ -95,6 +104,12 @@ class ResumeBook(models.Model):
 		if not self.book:
 			import pdf, time
 			resumes = [x.path() for x in Resume.objects.filter(year=self.year, industry=self.industry)]
+			for resume_loc in resumes:
+				mkdir_p('/'.join(resume_loc.split('/')[:-1]))
+				r = requests.get(settings.CF_URL+'/'+resume_loc)
+				with open(resume_loc, 'wb') as f:
+					for chunk in r.iter_content():
+						f.write(chunk)
 			tmpfile = "/tmp/" + str(time.time()) + ".pdf"
 			pdf.merge(resumes, tmpfile)
 			with open(tmpfile, 'r') as f:

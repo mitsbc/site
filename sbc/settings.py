@@ -215,11 +215,9 @@ if not DEBUG:
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     DEFAULT_FILE_STORAGE = 'sbc.s3utils.MediaRootS3BotoStorage'
     STATICFILES_STORAGE = 'sbc.s3utils.StaticRootS3BotoStorage'
-    MEDIA_ROOT = '/media/'
-    STATIC_ROOT = '/static/'
     S3_URL = 'https://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
     CF_URL = 'https://%s' % AWS_S3_CUSTOM_DOMAIN
-    STATIC_URL = CF_URL + STATIC_ROOT
-    MEDIA_URL = CF_URL + MEDIA_ROOT
+    STATIC_URL = CF_URL + '/media/'
+    MEDIA_URL = CF_URL + '/static/'
     TINYMCE_JS_ROOT = STATIC_URL + "tiny_mce"
     TINYMCE_JS_URL = TINYMCE_JS_ROOT + "/tiny_mce.js"
