@@ -71,7 +71,8 @@ class Resume(models.Model):
 		return settings.MEDIA_ROOT+"drop/resumes/{0}/{1}/{2}.pdf".format(self.year, self.unique_hash, self.name)
 
 	def url(self):
-		return reverse('resume',kwargs={'year':self.year, 'unique_hash':self.unique_hash})
+		return settings.CF_URL + self.resume.path[len(settings.PROJECT_PATH):]
+		# return reverse('resume',kwargs={'year':self.year, 'unique_hash':self.unique_hash})
 
 	def industry_nice(self):
 		return TYPE_CHOICES[self.industry][1]
@@ -90,7 +91,8 @@ class ResumeBook(models.Model):
 	book = models.FileField(upload_to=get_book_path,blank=True)
 
 	def url(self):
-		return reverse('book',kwargs={'industry':self.industry, 'year':self.year})
+		return settings.CF_URL + self.book.path[len(settings.PROJECT_PATH):]
+		# return reverse('book', kwargs={'industry': self.industry, 'year': self.year, 'name': slug})
 
 	def path(self):
 		return settings.MEDIA_ROOT+"drop/books/{0}/{1}.pdf".format(self.industry, self.year)
@@ -106,7 +108,7 @@ class ResumeBook(models.Model):
 			resumes = [x.path() for x in Resume.objects.filter(year=self.year, industry=self.industry)]
 			for resume_loc in resumes:
 				mkdir_p('/'.join(resume_loc.split('/')[:-1]))
-				r = requests.get(settings.CF_URL+resume_loc[len(settings.PROJECT_PATH):])
+				r = requests.get(self.url())
 				with open(resume_loc, 'wb') as f:
 					for chunk in r.iter_content():
 						f.write(chunk)
