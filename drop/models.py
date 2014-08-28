@@ -71,7 +71,7 @@ class Resume(models.Model):
 		return settings.MEDIA_ROOT+"drop/resumes/{0}/{1}/{2}.pdf".format(self.year, self.unique_hash, self.name)
 
 	def url(self):
-		return settings.CF_URL + self.resume.path[len(settings.PROJECT_PATH):]
+		return self.resume.url
 		# return reverse('resume',kwargs={'year':self.year, 'unique_hash':self.unique_hash})
 
 	def industry_nice(self):
@@ -91,7 +91,7 @@ class ResumeBook(models.Model):
 	book = models.FileField(upload_to=get_book_path,blank=True)
 
 	def url(self):
-		return settings.CF_URL + self.book.path[len(settings.PROJECT_PATH):]
+		return self.book.url
 		# return reverse('book', kwargs={'industry': self.industry, 'year': self.year, 'name': slug})
 
 	def path(self):
