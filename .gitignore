@@ -1,6 +1,6 @@
 .env
 
-sbc/media/ine
+sbc/media/drop
 
 # Django
 *.log

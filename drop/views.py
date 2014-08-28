@@ -1,17 +1,19 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-import datetime
-from django.utils import timezone
-
-from ine.models import Resume, Company, ResumeBook
+from django.shortcuts import render, redirect, get_object_or_404
+from drop.models import Resume, Company, ResumeBook, DropEvent
 from home.models import Menu
-from ine.forms import ResumeDropForm, CompanyLoginForm
+from drop.forms import ResumeDropForm, CompanyLoginForm
+import datetime
 
-
-def ine_drop(request):
+def preprocess_context(name):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['today'] = datetime.date.today()
+	context['event'] = get_object_or_404(DropEvent, slug=name)
+	return context
+
+def drop_drop(request, name):
+	context = preprocess_context(name)
 	if request.method == 'POST':
 		form = ResumeDropForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -21,12 +23,10 @@ def ine_drop(request):
 	else:
 		form = ResumeDropForm()
 	context["form"] = form
-	return render(request, 'ine/ine_drop.html', context)
+	return render(request, 'drop/drop.html', context)
 
-def ine_admin(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
+def drop_admin(request, name):
+	context = preprocess_context(name)
 	if request.method == 'POST':
 		form = CompanyLoginForm(request.POST)
 		if form.is_valid():
@@ -41,57 +41,49 @@ def ine_admin(request):
 		except Company.DoesNotExist:
 			request.session.pop("company")
 	context["form"] = form
-	return render(request, 'ine/ine_admin.html', context)
+	return render(request, 'drop/admin.html', context)
 
-def ine_resumes(request):
+def drop_resumes(request, name):
 	if request.session.get("company") == None:
-		return redirect('ine_admin')
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
+		return redirect('drop_admin')
+		context = preprocess_context(name)
 	if Resume.objects.all().count() > 0:
 		context['resumes'] = Resume.objects.all()
 		context['prefix'] = "All"
-		return render(request, 'ine/ine_resumes.html', context)
+		return render(request, 'drop/resumes.html', context)
 	else:
-		return render(request, 'ine/resume_error.html', context)
+		return render(request, 'drop/resume_error.html', context)
 
-def ine_resumes_by_year(request, year):
+def drop_resumes_by_year(request, name, year):
 	if request.session.get("company") == None:
-		return redirect('ine_admin')
+		return redirect('drop_admin')
 	year = int(year)
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
+	context = preprocess_context(name)
 	if Resume.objects.filter(year=year).count() > 0:
 		context['resumes'] = Resume.objects.filter(year=year)
 		context['prefix'] = "Class of {0} ".format(year)
-		return render(request, 'ine/ine_resumes.html', context)
+		return render(request, 'drop/resumes.html', context)
 	else:
-		return render(request, 'ine/resume_error.html', context)
+		return render(request, 'drop/resume_error.html', context)
 
-def ine_resumes_by_industry(request, industry):
+def drop_resumes_by_industry(request, name, industry):
 	if request.session.get("company") == None:
-		return redirect('ine_admin')
+		return redirect('drop_admin')
 	industry = int(industry)
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
+	context = preprocess_context(name)
 	context['resumes'] = Resume.objects.filter(industry=industry)
 	try:
 		context['prefix'] = Resume.objects.get(industry=industry).industry_nice
 	except Resume.DoesNotExist:
-		return render(request, 'ine/resume_error.html', context)
-	return render(request, 'ine/ine_resumes.html', context)
+		return render(request, 'drop/resume_error.html', context)
+	return render(request, 'drop/resumes.html', context)
 
-def book(request, industry, year):
+def book(request, name, industry, year):
 	if request.session.get("company") == None:
-		return redirect('ine_admin')
+		return redirect('drop_admin')
 	industry = int(industry)
 	year = int(year)
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
+	context = preprocess_context(name)
 	if request.session.get("company") != None:
 		try:
 			company = Company.objects.get(unique_hash=request.session.get("company"))
@@ -104,21 +96,19 @@ def book(request, industry, year):
 				if "MSIE" in request.META['HTTP_USER_AGENT']:
 					response["X-Download-Options"] = "noopen"
 					response["X-Content-Type-Options"] = "nosniff"
-				response['Content-Disposition'] = 'inline; filename="{0}.pdf"'.format(str(book))
+				response['Content-Disposition'] = 'inldrop; filename="{0}.pdf"'.format(str(book))
 				response['Content-Transfer-Encoding'] = 'binary'
 				response['Content-Length'] = str(book.book.size)
 				return response
 		except Company.DoesNotExist:
 			pass
-	return render(request, 'ine/ine_error.html', context)
+	return render(request, 'drop/error.html', context)
 
-def resume(request, year, unique_hash):
+def resume(request, name, year, unique_hash):
 	if request.session.get("company") == None:
-		return redirect('ine_admin')
+		return redirect('drop_admin')
 	year = int(year)
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
-	context['today'] = datetime.date.today()
+	context = preprocess_context(name)
 	try:
 		resume = Resume.objects.get(unique_hash=unique_hash,year=year)
 		pdf = open(resume.path(),"r")
@@ -128,10 +118,10 @@ def resume(request, year, unique_hash):
 		if "MSIE" in request.META['HTTP_USER_AGENT']:
 			response["X-Download-Options"] = "noopen"
 			response["X-Content-Type-Options"] = "nosniff"
-		response['Content-Disposition'] = 'inline; filename="{0}.pdf"'.format(str(resume))
+		response['Content-Disposition'] = 'inldrop; filename="{0}.pdf"'.format(str(resume))
 		response['Content-Transfer-Encoding'] = 'binary'
 		response['Content-Length'] = str(resume.resume.size)
 		return response
 	except Resume.DoesNotExist:
 		pass
-	return render(request, 'ine/resume_error.html', context)
+	return render(request, 'drop/resume_error.html', context)

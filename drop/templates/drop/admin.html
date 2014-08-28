@@ -1,9 +1,9 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
-{% block title %}Internship Networking Exclusive {{ today.year }}{% endblock %}
+{% block title %}{{ event.name }}{% endblock %}
 {% block body %}
 <div class="grid_12 featurebar left">
-<h1>Internship Networking Exclusive {{ today.year }}</h1>
+<h1>{{ event.name }}</h1>
 </div>
 <div class="grid_12 left">
 {% if request.session.company %}
@@ -15,7 +15,7 @@
 <h2>Sponsor Resume Books</h2>
 <p>Please enter your company identifier to view this year's resume books.</p>
 <p>
-	<form action="{% url 'ine_admin' %}" method="POST" class="pure-form pure-form-aligned">
+	<form action="{% url 'drop_admin' name=event.slug %}" method="POST" class="pure-form pure-form-aligned">
 		<fieldset>
 		{% csrf_token %}
 		{% for field in form %}
@@ -32,6 +32,6 @@
 		</fieldset>
 	</form>
 </p>
-{% endif %}	
+{% endif %}
 </div>
 {% endblock %}

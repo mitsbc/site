@@ -1,5 +1,10 @@
 from django.contrib import admin
-from ine.models import Resume, ResumeBook, Company
+from drop.models import Resume, ResumeBook, Company, DropEvent
+
+class DropEventAdmin(admin.ModelAdmin):
+    fields = ['name', 'slug']
+    readonly_fields = ['slug']
+    search_fields = ['name']
 
 class ResumeAdmin(admin.ModelAdmin):
     fields = ['name','industry','email','year','resume']
@@ -21,6 +26,7 @@ class CompanyAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display = ['name','unique_hash', 'contact_name']
 
+admin.site.register(DropEvent, DropEventAdmin)
 admin.site.register(Resume, ResumeAdmin)
 admin.site.register(ResumeBook, ResumeBookAdmin)
 admin.site.register(Company, CompanyAdmin)

@@ -1,18 +1,18 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
-{% block title %}Internship Networking Exclusive {{ today.year }}{% endblock %}
+{% block title %}{{ event.name }}{% endblock %}
 {% block body %}
 <div class="grid_12 featurebar left">
-<h1>Internship Networking Exclusive {{ today.year }}</h1>
+<h1>{{ event.name }}</h1>
 </div>
 <div class="grid_12 left">
 <h2>Resume Drop</h2>
 {% if submitted %}
 <p>Thank you for dropping your resume, {{ name }}. We will be in contact shortly if you are selected to participate.</p>
 {% else %}
-<p>MIT's Sloan Business Club solicits resume for its annual Internship Networking Exclusive (INE), a unique opportunity for students to network in an intimate environment with the top consulting, finance, and technology firms that are currently actively recruiting. Please use the below form to drop your resume.</p>
+<p>MIT's Sloan Business Club solicits resume for its annual {{ event.name }}, a unique opportunity for students to network in an intimate environment with the top consulting, finance, and technology firms that are currently actively recruiting. Please use the below form to drop your resume.</p>
 <p>
-	<form enctype="multipart/form-data" action="{% url 'ine_drop' %}" method="POST" class="pure-form pure-form-aligned">
+	<form enctype="multipart/form-data" action="{% url 'drop_drop' name=event.slug %}" method="POST" class="pure-form pure-form-aligned">
 		<fieldset>
 		{% csrf_token %}
 		{% for field in form %}
@@ -29,6 +29,6 @@
 		</fieldset>
 	</form>
 </p>
-{% endif %}	
+{% endif %}
 </div>
 {% endblock %}

@@ -19,7 +19,7 @@ DATABASES = {
         'NAME': os.environ['db_name'],                      # Or path to database file if using sqlite3.
         'HOST': os.environ['db_host'],
         'USER': os.environ['db_user'],
-        'PASSWORD': os.environ['db_pass'],                    
+        'PASSWORD': os.environ['db_pass'],
         'PORT': '',                       # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
     }
 }
@@ -142,7 +142,7 @@ INSTALLED_APPS = (
     'boto',
     'collectfast',
     'home',
-    'ine',
+    'drop',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -182,7 +182,7 @@ SUIT_CONFIG = {
         {'app': 'auth', 'label': 'Authorization', 'icon':'icon-lock'},
         '-',
         {'app': 'home', 'label': 'Main Site'},
-        {'app': 'ine', 'label': 'INE/Resume Drop'}
+        {'app': 'drop', 'label': 'INE/Resume Drop'}
     ),
     'HEADER_TIME_FORMAT': 'h:i A'
 }

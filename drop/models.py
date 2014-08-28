@@ -1,12 +1,15 @@
 from django.db import models
-import datetime, hashlib, random, mimetypes
-from django.template import defaultfilters
+import hashlib, random, mimetypes, datetime
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.core.files import File
+from django.template.defaultfilters import slugify
 
-SENIOR = 2014
+if datetime.date.today().month > 6:
+	SENIOR = datetime.date.today().year + 1
+else:
+	SENIOR = datetime.date.today().year
 JUNIOR = SENIOR + 1
 SOPHOMORE = SENIOR + 2
 FRESHMAN = SENIOR + 3
@@ -29,10 +32,22 @@ TYPE_CHOICES = (
 )
 
 def get_resume_path(instance, filename):
-	return "ine/resumes/{0}/{1}/{2}.pdf".format(instance.year, hashlib.sha1("SBC"+instance.email).hexdigest(), instance.name)
+	return "drop/resumes/{0}/{1}/{2}.pdf".format(instance.year, hashlib.sha1("SBC"+instance.email).hexdigest(), instance.name)
 
 def get_book_path(instance, filename):
-	return "ine/books/{0}/{1}.pdf".format(instance.industry, instance.year)
+	return "drop/books/{0}/{1}.pdf".format(instance.industry, instance.year)
+
+class DropEvent(models.Model):
+
+	name = models.CharField(max_length=100)
+	slug = models.SlugField(max_length=100)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(DropEvent, self).save()
+
+	def __unicode__(self):
+		return self.name
 
 class Resume(models.Model):
 
@@ -44,7 +59,7 @@ class Resume(models.Model):
 	unique_hash = models.CharField(max_length=100, verbose_name="Student Identifier")
 
 	def path(self):
-		return settings.MEDIA_ROOT+"ine/resumes/{0}/{1}/{2}.pdf".format(self.year, self.unique_hash, self.name)
+		return settings.MEDIA_ROOT+"drop/resumes/{0}/{1}/{2}.pdf".format(self.year, self.unique_hash, self.name)
 
 	def url(self):
 		return reverse('resume',kwargs={'year':self.year, 'unique_hash':self.unique_hash})
@@ -69,7 +84,7 @@ class ResumeBook(models.Model):
 		return reverse('book',kwargs={'industry':self.industry, 'year':self.year})
 
 	def path(self):
-		return settings.MEDIA_ROOT+"ine/books/{0}/{1}.pdf".format(self.industry, self.year)
+		return settings.MEDIA_ROOT+"drop/books/{0}/{1}.pdf".format(self.industry, self.year)
 
 	def clean(self):
 		super(ResumeBook, self).clean()
@@ -93,7 +108,7 @@ class ResumeBook(models.Model):
 		return "{0} {1} Resume Book".format(self.year, self.industry_nice())
 
 class Company(models.Model):
-	
+
 	class Meta:
 		verbose_name_plural = "Companies"
 

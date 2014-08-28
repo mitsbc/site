@@ -1,5 +1,5 @@
 from django import forms
-from ine.models import Resume, Company
+from drop.models import Resume, Company
 import mimetypes
 
 class ResumeDropForm(forms.ModelForm):

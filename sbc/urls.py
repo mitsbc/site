@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('home.urls')),
-    url(r'^', include('ine.urls')),
+    url(r'^', include('drop.urls')),
     (r'^tinymce/', include('tinymce.urls')),
     (r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})

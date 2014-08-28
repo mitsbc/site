@@ -1,9 +1,9 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
-{% block title %}Internship Networking Exclusive {{ today.year }}{% endblock %}
+{% block title %}{{ event.name }}{% endblock %}
 {% block body %}
 <div class="grid_12 featurebar left">
-<h1>Internship Networking Exclusive {{ today.year }}</h1>
+<h1>{{ event.name }}</h1>
 </div>
 <div class="grid_12 left">
 <h2>{{ prefix }} Resumes</h2>
