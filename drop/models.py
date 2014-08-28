@@ -106,7 +106,7 @@ class ResumeBook(models.Model):
 			resumes = [x.path() for x in Resume.objects.filter(year=self.year, industry=self.industry)]
 			for resume_loc in resumes:
 				mkdir_p('/'.join(resume_loc.split('/')[:-1]))
-				r = requests.get(settings.CF_URL+'/'+resume_loc)
+				r = requests.get(settings.CF_URL+resume_loc[len(settings.PROJECT_PATH):])
 				with open(resume_loc, 'wb') as f:
 					for chunk in r.iter_content():
 						f.write(chunk)
