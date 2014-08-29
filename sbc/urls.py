@@ -12,7 +12,8 @@ sitemaps = {
 	'event': CalendarItemSitemap,
 	'static': StaticViewSitemap,
 	'members_by_name': MemberListSitemap,
-	'members_by_year': MemberSitemap
+	'members_by_year': MemberSitemap,
+    'drop_event': DropEventSitemap,
 }
 
 urlpatterns = patterns('',

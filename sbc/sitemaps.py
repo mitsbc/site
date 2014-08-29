@@ -1,6 +1,7 @@
 from django.contrib.sitemaps import Sitemap
 from django.core.urlresolvers import reverse
-from home.models import CalendarItem, Member, MemberList
+from home.models import CalendarItem, MemberList
+from drop.models import SENIOR, DropEvent
 
 class CalendarItemSitemap(Sitemap):
     changefreq = "daily"
@@ -20,7 +21,7 @@ class StaticViewSitemap(Sitemap):
     priority = 1
 
     def items(self):
-        return ['about', 'contact', 'subscribe', 'events_all', 'index', 'drop_admin', 'drop_drop']
+        return ['about', 'contact', 'subscribe', 'events_all', 'index']
 
     def location(self, item):
         return reverse(item)
@@ -40,8 +41,17 @@ class MemberSitemap(Sitemap):
     priority = 0.8
 
     def items(self):
-    	YEAR = 2014
-        return range(YEAR,YEAR+4)
+        return range(SENIOR,SENIOR+4)
 
     def location(self, item):
-         return reverse('members_by_year',kwargs={'year': item})
+         return reverse('members_by_year', kwargs={'year': item})
+
+class DropEventSitemap(Sitemap):
+    changefreq = 'monthly'
+    priority = 0.8
+
+    def items(self):
+        return DropEvent.objects.all()
+
+    def location(self, item):
+        return reverse('drop_drop', kwargs={'name': item.slug})
