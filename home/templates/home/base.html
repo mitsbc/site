@@ -81,11 +81,11 @@
 			  ga('set', '&uid', data.email);
 		});
 	  }
-	  else {
-	  	  email = $.cookie('id_email');
-		  name = $.cookie('id_name');
-		  phone = $.cookie('id_phone');
-	  	  $("#id_email").val(email);
+	  else if ($.cookie('id_email')) {
+  	  email = $.cookie('id_email');
+	  	name = $.cookie('id_name');
+	  	phone = $.cookie('id_phone');
+  	  $("#id_email").val(email);
 		  $("#id_name").val(name);
 		  $("#id_phone").val(phone);
 		  ga('send', 'event', 'view', 'user', email);
