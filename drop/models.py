@@ -1,7 +1,6 @@
 from django.db import models
 import hashlib, random, mimetypes, datetime, requests, os, errno
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.core.files import File
 from django.template.defaultfilters import slugify
@@ -49,11 +48,15 @@ def get_book_path(instance, filename):
 class DropEvent(models.Model):
 
 	name = models.CharField(max_length=100)
+	description = models.TextField()
 	slug = models.SlugField(max_length=100)
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
 		super(DropEvent, self).save()
+
+	def html_description(self):
+		return '<p>' + '</p><p>'.join(self.description.split("\n")) + '</p>'
 
 	def __unicode__(self):
 		return self.name
