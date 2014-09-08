@@ -25,7 +25,7 @@ def set_timezone(request):
 def index(request):
 	context = preprocess_context()
 	context['slider_items'] =  SliderItem.objects.all()
-	context['calendar_items'] =  CalendarItem.objects.order_by('time').filter(time__gt=timezone.now())[:3]
+	context['calendar_items'] =  CalendarItem.objects.order_by('time').filter(time__gt=timezone.now())[:4]
 	context['left_widget'] =  Widget.objects.get(name="left")
 	context['right_widget'] =  Widget.objects.get(name="right")
 	return render(request, 'home/index.html', context)
