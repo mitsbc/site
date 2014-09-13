@@ -108,10 +108,11 @@ class ResumeBook(models.Model):
 	def save(self, *args, **kwargs):
 		if not self.book:
 			import pdf, time
-			resumes = [x.path() for x in Resume.objects.filter(year=self.year, industry=self.industry)]
-			for resume_loc in resumes:
+			resumes = Resume.objects.filter(year=self.year, industry=self.industry)
+			for resume in resumes:
+				resume_loc = resume.path()
 				mkdir_p('/'.join(resume_loc.split('/')[:-1]))
-				r = requests.get(self.url())
+				r = requests.get(resume.url())
 				with open(resume_loc, 'wb') as f:
 					for chunk in r.iter_content():
 						f.write(chunk)
