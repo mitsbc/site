@@ -117,7 +117,7 @@ class ResumeBook(models.Model):
 					for chunk in r.iter_content():
 						f.write(chunk)
 			tmpfile = "/tmp/" + str(time.time()) + ".pdf"
-			pdf.merge(resumes, tmpfile)
+			pdf.merge([x.path() for x in resumes], tmpfile)
 			with open(tmpfile, 'r') as f:
 				self.book.save(get_book_path(self,tmpfile), File(f))
 		super(ResumeBook, self).save()
