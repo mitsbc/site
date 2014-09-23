@@ -90,7 +90,7 @@ class CalendarItem(models.Model):
 			return reverse('event',kwargs={'slug': str(self.slug)})
 
 	def end_time(self):
-		return self.time + datetime.datetime.timedelta(minutes=self.length)
+		return self.time + datetime.timedelta(minutes=self.length)
 
 	url = property(get_relative_url)
 
