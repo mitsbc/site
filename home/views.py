@@ -79,7 +79,6 @@ def event(request, slug):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['item'] = get_object_or_404(CalendarItem, slug=slug)
-	context['item_end'] = context['item'].time + datetime.timedelta(hours=2)
 	return render(request, 'home/event.html', context)
 
 def contact(request):

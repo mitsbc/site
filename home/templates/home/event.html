@@ -17,7 +17,7 @@
 			<a href="{{ item.url }}" title="Add to Calendar" class="addthisevent">
 		    Add to Calendar
 		    <span class="_start">{{ item.time|date:"d-m-y H:i:00" }}</span>
-		    <span class="_end">{{ item_end|date:"d-m-y H:i:00" }}</span>
+		    <span class="_end">{{ item.end_time|date:"d-m-y H:i:00" }}</span>
 		    <span class="_zonecode">15</span>
 		    <span class="_summary">{{ item.name }}</span>
 		    <span class="_description">{{ item.description }}</span>

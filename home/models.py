@@ -66,6 +66,7 @@ class CalendarItem(models.Model):
 	name = models.CharField(max_length=200)
 	slug = models.SlugField(max_length=200)
 	time = models.DateTimeField("Date and Time",default=timezone.now())
+	length = models.DateTimeField("Length (Minutes)", default=120)
 	location = models.CharField("Building",max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
@@ -87,6 +88,9 @@ class CalendarItem(models.Model):
 			return self.link
 		else:
 			return reverse('event',kwargs={'slug': str(self.slug)})
+
+	def end_time(self):
+		return self.time + datetime.datetime.timedelta(minutes=self.length)
 
 	url = property(get_relative_url)
 
