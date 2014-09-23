@@ -66,7 +66,7 @@ class CalendarItem(models.Model):
 	name = models.CharField(max_length=200)
 	slug = models.SlugField(max_length=200)
 	time = models.DateTimeField("Date and Time",default=timezone.now())
-	length = models.DateTimeField("Length (Minutes)", default=120)
+	length = models.IntegerField("Length (Minutes)", default=120)
 	location = models.CharField("Building",max_length=200)
 	link = models.URLField(max_length=200,null=True,blank=True)
 	new_page = models.BooleanField("Open in new page")
