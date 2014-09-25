@@ -193,7 +193,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_buttons3' : "",
 }
 
-STATIC_VERSION = 1
+STATIC_VERSION = os.getenv('STATIC_VERSION', 1)
 
 EMAIL_HOST = os.environ['email_host']
 EMAIL_HOST_USER = os.environ['email_user']
