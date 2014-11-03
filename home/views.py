@@ -31,37 +31,31 @@ def index(request):
 	return render(request, 'home/index.html', context)
 
 def not_found_view(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	return HttpResponseNotFound(render_to_string('home/404.html', context))
 
 def blog(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	context['posts'] =  BlogPost.objects.all()
 	return render(request, 'home/blog.html', context)
 
 def author(request, slug):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	person = get_object_or_404(Member, name=slug.replace("-"," "))
 	context['posts'] =  BlogPost.objects.filter(author=person)
 	return render(request, 'home/blog.html', context)
 
 def post(request, slug):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	context['post'] = get_object_or_404(BlogPost, slug=slug)
 	return render(request, 'home/post.html', context)
 
 def about(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	return render(request, 'home/about.html', context)
 
 def events_all(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	context['calendar_items'] =  CalendarItem.objects.order_by('time').filter(time__gt=timezone.now())[:3]
 	context['gcal_url'] =  settings.GCAL_URL
 	return render(request, 'home/events.html', context)
@@ -79,14 +73,12 @@ def events_json(request):
 	return HttpResponse(json.dumps(items), mimetype='application/json')
 
 def event(request, slug):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	context['item'] = get_object_or_404(CalendarItem, slug=slug)
 	return render(request, 'home/event.html', context)
 
 def contact(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	context['contact_groups'] = ContactGroup.objects.all()
 	if request.method == 'POST':
 		form = ContactMessageForm(request.POST)
@@ -101,8 +93,7 @@ def contact(request):
 	return render(request, 'home/contact.html', context)
 
 def subscribe(request):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	if request.method == 'POST':
 		form = SubscriberForm(request.POST)
 		if form.is_valid():
@@ -125,16 +116,14 @@ def custom_exec_sort(title, name):
 	return ranking[title] if title in ranking else len(ranking)
 
 def members_by_name(request, name):
-	context = {}
+	context = preprocess_context()
 	members = get_object_or_404(MemberList, name=name)
-	context['top_menu'] =  Menu.objects.get(name="top")
 	context['title'] = members.title
 	context['member'] =  list(sorted(members.member.all(), key=lambda x: custom_exec_sort(x.title.lower(), name)))
 	return render(request, 'home/members.html', context)
 
 def members_by_year(request, year):
-	context = {}
-	context['top_menu'] =  Menu.objects.get(name="top")
+	context = preprocess_context()
 	context['title'] = "Class of %s" % year
 	context['member'] =  Member.objects.filter(year=year)
 	return render(request, 'home/members.html', context)
