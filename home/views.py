@@ -2,7 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
-import datetime, json, pytz
+import datetime, json, pytz, dateutil.parser
 
 from home.models import Menu, Widget, SliderItem, CalendarItem, Member, MemberList, ContactGroup, BlogPost
 from home.forms import SubscriberForm, ContactMessageForm
@@ -63,12 +63,15 @@ def events_all(request):
 	context = {}
 	context['top_menu'] =  Menu.objects.get(name="top")
 	context['calendar_items'] =  CalendarItem.objects.order_by('time').filter(time__gt=timezone.now())[:3]
+	context['gcal_url'] =  settings.GCAL_URL
 	return render(request, 'home/events.html', context)
 
 def events_json(request):
 	items = []
 	try:
-		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=datetime.datetime.fromtimestamp(int(float(request.GET.get('start')))),time__lt=datetime.datetime.fromtimestamp(int(float(request.GET.get('end','')))))
+		start = dateutil.parser.parse(request.GET.get('start'))
+		end = dateutil.parser.parse(request.GET.get('end'))
+		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=start,time__lt=end)
 	except TypeError:
 		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=timezone.now(),time__lt=timezone.now() + datetime.timedelta(weeks=4))
 	for c in calendar_items:
