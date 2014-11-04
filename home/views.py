@@ -66,7 +66,7 @@ def events_json(request):
 		start = dateutil.parser.parse(request.GET.get('start'))
 		end = dateutil.parser.parse(request.GET.get('end'))
 		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=start,time__lt=end)
-	except TypeError:
+	except AttributeError:
 		calendar_items = CalendarItem.objects.order_by('time').filter(time__gt=timezone.now(),time__lt=timezone.now() + datetime.timedelta(weeks=4))
 	for c in calendar_items:
 		items.append(c.to_dict(request))
