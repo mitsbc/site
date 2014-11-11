@@ -10,8 +10,9 @@ class ResumeDropForm(forms.ModelForm):
 	def clean_email(self):
 		if self.cleaned_data.get("email").split("@")[1].startswith("mit.edu") != True:
 			raise forms.ValidationError('You must use an MIT email address.')
-		if Resume.objects.filter(email=self.cleaned_data.get("email")).count() > 0:
-			raise forms.ValidationError('You have already submitted your resume.')
+		resumes = Resume.objects.filter(email=self.cleaned_data.get("email"), industry=self.cleaned_data.get("industry"), event=self.cleaned_data.get("event"))
+		if resumes.count() > 0:
+			raise forms.ValidationError('You have already submitted your resume for this event and industry.')
 		return self.cleaned_data.get("email")
 
 	def clean_resume(self):

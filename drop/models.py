@@ -68,7 +68,8 @@ class Resume(models.Model):
 	year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=FRESHMAN)
 	resume = models.FileField(upload_to=get_resume_path)
 	industry = models.IntegerField(max_length=1, choices=TYPE_CHOICES, default=CONSULTING, verbose_name="Industry")
-	unique_hash = models.CharField(max_length=100, verbose_name="Student Identifier")
+	unique_hash = models.CharField(max_length=100, verbose_name="Student Identifier", unique=True)
+	event =  models.ForeignKey(DropEvent, verbose_name="Event")
 
 	def path(self):
 		return settings.MEDIA_ROOT+"drop/resumes/{0}/{1}/{2}.pdf".format(self.year, self.unique_hash, self.name)
@@ -84,7 +85,7 @@ class Resume(models.Model):
 		return self.name
 
 	def save(self, *args, **kwargs):
-		self.unique_hash = hashlib.sha1("SBC"+self.email).hexdigest()
+		self.unique_hash = hashlib.sha1("SBC"+self.email+self.industry+str(self.event.pk)).hexdigest()
 		super(Resume, self).save()
 
 class ResumeBook(models.Model):

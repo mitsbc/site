@@ -21,7 +21,7 @@ def drop_drop(request, name):
 			context["submitted"] = True
 			context["name"] = form.cleaned_data.get("name")
 	else:
-		form = ResumeDropForm()
+		form = ResumeDropForm(initial={'event': context['event']})
 	context["form"] = form
 	return render(request, 'drop/drop.html', context)
 
