@@ -69,7 +69,7 @@
 	  if(window.top !== window.self){
 		  window.top.location.replace(window.self.location.href);
 	  }
-	  if ($.cookie('id_email') == undefined || $.cookie('id_name') == undefined || $.cookie('id_phone') == undefined) {
+	  if ($.cookie('id_email') == undefined || $.cookie('id_name') == undefined || $.cookie('id_phone') == undefined || $.cookie('id_year') == undefined) {
 	  	var SENIOR = (new Date()).getFullYear();
 	  	if ((new Date()).getMonth() > 6){
 	  		SENIOR += 1;
