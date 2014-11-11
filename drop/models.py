@@ -93,6 +93,7 @@ class ResumeBook(models.Model):
 	year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=FRESHMAN)
 	industry = models.IntegerField(max_length=1, choices=TYPE_CHOICES, default=CONSULTING, verbose_name="Industry")
 	book = models.FileField(upload_to=get_book_path,blank=True)
+	events = models.ManyToManyField(DropEvent)
 
 	def url(self):
 		return self.book.url
@@ -109,7 +110,7 @@ class ResumeBook(models.Model):
 	def save(self, *args, **kwargs):
 		if not self.book:
 			import pdf, time
-			resumes = Resume.objects.filter(year=self.year, industry=self.industry)
+			resumes = Resume.objects.filter(year=self.year, industry=self.industry, event__in=self.events)
 			for resume in resumes:
 				resume_loc = resume.path()
 				mkdir_p('/'.join(resume_loc.split('/')[:-1]))

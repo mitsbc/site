@@ -7,12 +7,12 @@ class DropEventAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class ResumeAdmin(admin.ModelAdmin):
-    fields = ['name','industry','email','year','resume']
+    fields = ['name','industry','email','year','resume','event']
     search_fields = ['name','email']
-    list_display = ['name','industry','email','year']
+    list_display = ['name','industry','email','year','event']
 
 class ResumeBookAdmin(admin.ModelAdmin):
-    fields = ['industry','year','book']
+    fields = ['industry','year','book','events']
     def get_readonly_fields(self, request, obj=None):
         if obj:
             return self.readonly_fields + ('industry','year')
