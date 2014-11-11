@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.core.files import File
 from django.template.defaultfilters import slugify
+from itertools import groupby
 
 if datetime.date.today().month > 6:
 	SENIOR = datetime.date.today().year + 1
@@ -110,8 +111,9 @@ class ResumeBook(models.Model):
 	def save(self, *args, **kwargs):
 		if not self.book:
 			import pdf, time
-			resumes = Resume.objects.filter(year=self.year, industry=self.industry, event__in=self.events)
-			for resume in resumes:
+			resumes = Resume.objects.filter(year=self.year, industry=self.industry, event__in=self.events).order_by('email', 'event')
+			for _, resume_group in groupby(resumes, key=lambda r: r.email):
+				resume = list(resume_group)[-1]
 				resume_loc = resume.path()
 				mkdir_p('/'.join(resume_loc.split('/')[:-1]))
 				r = requests.get(resume.url())
