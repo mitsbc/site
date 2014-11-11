@@ -70,13 +70,21 @@
 		  window.top.location.replace(window.self.location.href);
 	  }
 	  if ($.cookie('id_email') == undefined || $.cookie('id_name') == undefined || $.cookie('id_phone') == undefined) {
-	  	$.get( "https://sbc.scripts.mit.edu:444/auth/auth.py", function(data) {
+	  	var SENIOR = (new Date()).getYear();
+	  	if ((new Date()).getMonth() > 6){
+	  		SENIOR += 1;
+	  	}
+
+	  	$.get("https://sbc.scripts.mit.edu:444/auth/auth.py", function(data) {
 	  	  $.cookie('id_email', data.email);
 	  	  $.cookie('id_name', data.name);
 	  	  $.cookie('id_phone', data.phone);
+	  	  var year = SENIOR + (4-data.year)
+	  	  $.cookie('id_year', year);
 	  	  $("#id_email").val(data.email);
 			  $("#id_name").val(data.name);
 			  $("#id_phone").val(data.phone);
+			  $("#id_year").val(year);
 			  ga('send', 'event', 'view', 'user', data.email);
 			  ga('set', '&uid', data.email);
 		});
@@ -85,9 +93,11 @@
   	  email = $.cookie('id_email');
 	  	name = $.cookie('id_name');
 	  	phone = $.cookie('id_phone');
+	  	phone = $.cookie('id_year');
   	  $("#id_email").val(email);
 		  $("#id_name").val(name);
 		  $("#id_phone").val(phone);
+		  $("#id_year").val(year);
 		  ga('send', 'event', 'view', 'user', email);
 		  ga('set', '&uid', email);
 	  }
