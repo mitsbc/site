@@ -70,7 +70,7 @@
 		  window.top.location.replace(window.self.location.href);
 	  }
 	  if ($.cookie('id_email') == undefined || $.cookie('id_name') == undefined || $.cookie('id_phone') == undefined) {
-	  	var SENIOR = (new Date()).getYear();
+	  	var SENIOR = (new Date()).getFullYear();
 	  	if ((new Date()).getMonth() > 6){
 	  		SENIOR += 1;
 	  	}
@@ -93,7 +93,7 @@
   	  email = $.cookie('id_email');
 	  	name = $.cookie('id_name');
 	  	phone = $.cookie('id_phone');
-	  	phone = $.cookie('id_year');
+	  	year = $.cookie('id_year');
   	  $("#id_email").val(email);
 		  $("#id_name").val(name);
 		  $("#id_phone").val(phone);
