@@ -16,13 +16,16 @@
 	<form enctype="multipart/form-data" action="{% url 'drop_drop' name=event.slug %}" method="POST" class="pure-form pure-form-aligned">
 		<fieldset>
 		{% csrf_token %}
-		{% for field in form %}
+		{% for field in form.visible_fields %}
 	        <div class="pure-control-group">
 	            {{ field.errors }}
 	            {{ field.label_tag }}
 	            {{ field }}
 	        </div>
 	    {% endfor %}
+			{% for field in form.hidden_fields %}
+					{{ field }}
+			{% endfor %}
 	    <br />
 	    <div class="contact-form-submit-div">
 			<input class="pure-button" type="submit" value="Submit" id="contact_submit_btn"/>

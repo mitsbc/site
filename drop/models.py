@@ -85,7 +85,7 @@ class Resume(models.Model):
 		return self.name
 
 	def save(self, *args, **kwargs):
-		self.unique_hash = hashlib.sha1("SBC"+self.email+self.industry+str(self.event.pk)).hexdigest()
+		self.unique_hash = hashlib.sha1("SBC{}{}{}".format(self.email, TYPE_CHOICES[self.industry][1], self.event.pk)).hexdigest()
 		super(Resume, self).save()
 
 class ResumeBook(models.Model):
