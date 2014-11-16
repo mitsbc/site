@@ -109,9 +109,10 @@ class ResumeBook(models.Model):
 			raise ValidationError('Resume book must be a PDF.')
 
 	def save(self, *args, **kwargs):
+		super(ResumeBook, self).save()
 		if not self.book:
 			import pdf, time
-			resumes = Resume.objects.filter(year=self.year, industry=self.industry, event__in=self.events).order_by('email', 'event')
+			resumes = Resume.objects.filter(year=self.year, industry=self.industry, event__in=self.events.all()).order_by('email', 'event')
 			for _, resume_group in groupby(resumes, key=lambda r: r.email):
 				resume = list(resume_group)[-1]
 				resume_loc = resume.path()
@@ -124,7 +125,6 @@ class ResumeBook(models.Model):
 			pdf.merge([x.path() for x in resumes], tmpfile)
 			with open(tmpfile, 'r') as f:
 				self.book.save(get_book_path(self,tmpfile), File(f))
-		super(ResumeBook, self).save()
 
 	def industry_nice(self):
 		return TYPE_CHOICES[self.industry][1]
