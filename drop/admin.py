@@ -2,7 +2,7 @@ from django.contrib import admin
 from drop.models import Resume, ResumeBook, Company, DropEvent
 
 class DropEventAdmin(admin.ModelAdmin):
-    fields = ['name', 'description', 'slug']
+    fields = ['name', 'description', 'ends', 'slug']
     readonly_fields = ['slug']
     search_fields = ['name']
 

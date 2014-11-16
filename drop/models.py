@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.files import File
 from django.template.defaultfilters import slugify
 from itertools import groupby
+from django.utils import timezone
 
 if datetime.date.today().month > 6:
 	SENIOR = datetime.date.today().year + 1
@@ -51,6 +52,7 @@ class DropEvent(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField()
 	slug = models.SlugField(max_length=100)
+	ends = models.DateTimeField(default=timezone.now() + datetime.timedelta(days=7))
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)

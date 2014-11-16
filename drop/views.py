@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from drop.models import Resume, Company, ResumeBook, DropEvent
 from home.models import Menu
 from drop.forms import ResumeDropForm, CompanyLoginForm
+from django.utils import timezone
 import datetime
 
 def preprocess_context(name):
@@ -14,6 +15,8 @@ def preprocess_context(name):
 
 def drop_drop(request, name):
 	context = preprocess_context(name)
+	if timezone.now() > context['event'].ends:
+		return render(request, 'drop/finished.html', context)
 	if request.method == 'POST':
 		form = ResumeDropForm(request.POST, request.FILES)
 		if form.is_valid():

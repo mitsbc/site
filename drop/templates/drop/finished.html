@@ -1,0 +1,12 @@
+{% extends "home/base.html" %}
+{% load staticfiles %}
+{% block title %}{{ event.name }}{% endblock %}
+{% block body %}
+<div class="grid_12 featurebar left">
+<h1>{{ event.name }}</h1>
+</div>
+<div class="grid_12 left">
+<h2>Resume Drop Closed</h2>
+<p>The resume drop for {{ event.name }} has now ended.</p>
+</div>
+{% endblock %}
