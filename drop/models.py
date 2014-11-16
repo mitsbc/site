@@ -92,7 +92,7 @@ class ResumeBook(models.Model):
 		# return reverse('book', kwargs={'industry': self.industry, 'year': self.year, 'name': slug})
 
 	def path(self):
-		subdir = '-'.join([x.name for x in self.events.all()])
+		subdir = '-'.join([x.slug for x in self.events.all()])
 		return settings.MEDIA_ROOT + "drop/books/{0}/{1}/{2}-{1}.pdf".format(self.industry, subdir, self.year)
 
 	def clean(self):
