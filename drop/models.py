@@ -90,6 +90,9 @@ class ResumeBook(models.Model):
 	events = models.ManyToManyField(DropEvent)
 	resumes = models.ManyToManyField(Resume, blank=True, null=True)
 
+	def events_string(self):
+		return ", ".join([x.name for x in self.events.all()])
+
 	def url(self):
 		return self.book.url
 		# return reverse('book', kwargs={'industry': self.industry, 'year': self.year, 'name': slug})

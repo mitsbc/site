@@ -33,7 +33,7 @@ class ResumeBookAdmin(admin.ModelAdmin):
             return self.readonly_fields + ['industry','year']
         return self.readonly_fields
     search_fields = ['industry','year']
-    list_display = ['__unicode__','industry','year','events']
+    list_display = ['__unicode__','industry','year','events_string']
     def save_related(self, request, form, formsets, change):
         super(ResumeBookAdmin, self).save_related(request, form, formsets, change)
         instance = form.instance
