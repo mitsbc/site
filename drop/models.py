@@ -35,7 +35,7 @@ def get_resume_path(instance, filename):
 
 def get_book_path(instance, filename):
 	subdir = '-'.join([x.slug for x in instance.events.all()])
-	return "drop/books/{0}-{2}-{1}.pdf".format(TYPE_CHOICES[instance.industry], subdir, YEAR_CHOICES[instance.year])
+	return "drop/books/{0}-{2}-{1}.pdf".format(TYPE_CHOICES[instance.industry][1], subdir, YEAR_CHOICES[-(instance.year-SENIOR-1)][1])
 
 class DropEvent(models.Model):
 
