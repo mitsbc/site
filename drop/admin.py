@@ -25,7 +25,8 @@ class ResumeAdmin(admin.ModelAdmin):
     list_display = ['name','industry','email','year','event']
 
 class ResumeBookAdmin(admin.ModelAdmin):
-    fields = ['industry','year','book','events']
+    fields = ['industry','year','book','events', 'resumes']
+    readonly_fields = ['resumes']
     def get_readonly_fields(self, request, obj=None):
         if obj:
             return self.readonly_fields + ('industry','year')
