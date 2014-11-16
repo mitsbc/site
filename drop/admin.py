@@ -2,7 +2,8 @@ from django.contrib import admin
 from drop.models import Resume, ResumeBook, Company, DropEvent
 from itertools import groupby
 from django.core.files import File
-import requests,  os, errno
+import requests, os, errno, time
+from pdf import PdfFileMerger
 from models import get_book_path
 
 def mkdir_p(path):
@@ -37,20 +38,28 @@ class ResumeBookAdmin(admin.ModelAdmin):
         super(ResumeBookAdmin, self).save_related(request, form, formsets, change)
         instance = form.instance
         if not bool(instance.book):
-            import pdf, time
             resumes_ungrouped = Resume.objects.filter(year=instance.year, industry=instance.industry, event__in=instance.events.all()).order_by('email', 'event')
             resumes = []
             for _, resume_group in groupby(resumes_ungrouped, key=lambda r: r.email):
                 resume = list(resume_group)[-1]
                 resume_loc = resume.path()
                 mkdir_p('/'.join(resume_loc.split('/')[:-1]))
-                r = requests.get(resume.url())
-                with open(resume_loc, 'wb') as f:
-                    for chunk in r.iter_content():
-                        f.write(chunk)
-                resumes.append(resume)
+                try:
+                    r = requests.get(resume.url())
+                    with open(resume_loc, 'wb') as f:
+                        for chunk in r.iter_content():
+                            f.write(chunk)
+                    resumes.append(resume)
+                except:
+                    continue
+            merger = PdfFileMerger(strict=False)
+            for pdf in resumes:
+                try:
+                    merger.append(pdf.path(), bookmark=pdf.name)
+                except:
+                    continue
             tmpfile = "/tmp/" + str(time.time()) + ".pdf"
-            pdf.merge([x.path() for x in resumes], tmpfile)
+            merger.write(tmpfile)
             with open(tmpfile, 'r') as f:
                 instance.book.save(get_book_path(instance,tmpfile), File(f))
             instance.resumes = resumes
