@@ -37,8 +37,9 @@ class ResumeBookAdmin(admin.ModelAdmin):
         instance = form.instance
         if not bool(instance.book):
             import pdf, time
-            resumes = Resume.objects.filter(year=instance.year, industry=instance.industry, event__in=instance.events.all()).order_by('email', 'event')
-            for _, resume_group in groupby(resumes, key=lambda r: r.email):
+            resumes_ungrouped = Resume.objects.filter(year=instance.year, industry=instance.industry, event__in=instance.events.all()).order_by('email', 'event')
+            resumes = []
+            for _, resume_group in groupby(resumes_ungrouped, key=lambda r: r.email):
                 resume = list(resume_group)[-1]
                 resume_loc = resume.path()
                 mkdir_p('/'.join(resume_loc.split('/')[:-1]))
@@ -46,6 +47,7 @@ class ResumeBookAdmin(admin.ModelAdmin):
                 with open(resume_loc, 'wb') as f:
                     for chunk in r.iter_content():
                         f.write(chunk)
+                resumes.append(resume)
             tmpfile = "/tmp/" + str(time.time()) + ".pdf"
             pdf.merge([x.path() for x in resumes], tmpfile)
             with open(tmpfile, 'r') as f:
