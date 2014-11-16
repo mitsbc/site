@@ -35,7 +35,7 @@ def get_resume_path(instance, filename):
 
 def get_book_path(instance, filename):
 	subdir = '-'.join([x.slug for x in instance.events.all()])
-	year_nice = YEAR_CHOICES[-(instance.year-SENIOR-1)][1].lower()
+	year_nice = YEAR_CHOICES[3 - (instance.year - SENIOR)][1].lower()
 	industry_nice = TYPE_CHOICES[instance.industry][1].lower()
 	return "drop/books/{1}-{0}-{2}.pdf".format(industry_nice, subdir, year_nice)
 
