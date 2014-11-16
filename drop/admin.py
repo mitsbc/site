@@ -33,7 +33,7 @@ class ResumeBookAdmin(admin.ModelAdmin):
             return self.readonly_fields + ['industry','year']
         return self.readonly_fields
     search_fields = ['industry','year']
-    list_display = ['__unicode__','industry','year']
+    list_display = ['__unicode__','industry','year','events']
     def save_related(self, request, form, formsets, change):
         super(ResumeBookAdmin, self).save_related(request, form, formsets, change)
         instance = form.instance
@@ -60,6 +60,7 @@ class ResumeBookAdmin(admin.ModelAdmin):
                     continue
             tmpfile = "/tmp/" + str(time.time()) + ".pdf"
             merger.write(tmpfile)
+            merger.close()
             with open(tmpfile, 'r') as f:
                 instance.book.save(get_book_path(instance,tmpfile), File(f))
             instance.resumes = resumes
