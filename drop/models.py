@@ -45,7 +45,7 @@ class DropEvent(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
-		super(DropEvent, self).save()
+		super(DropEvent, self).save(*args, **kwargs)
 
 	def html_description(self):
 		return '<p>' + '</p><p>'.join(self.description.split("\n")) + '</p>'
@@ -64,7 +64,7 @@ class Resume(models.Model):
 	event =  models.ForeignKey(DropEvent, verbose_name="Event")
 
 	def path(self):
-		return settings.MEDIA_ROOT+"drop/resumes/{0}/{1}/{2}.pdf".format(self.year, self.unique_hash, self.name)
+		return settings.MEDIA_ROOT + "drop/resumes/{0}/{1}/{2}.pdf".format(self.year, self.unique_hash, self.name)
 
 	def url(self):
 		return self.resume.url
@@ -78,7 +78,7 @@ class Resume(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.unique_hash = hashlib.sha1("SBC{}{}{}".format(self.email, TYPE_CHOICES[self.industry][1], self.event.pk)).hexdigest()
-		super(Resume, self).save()
+		super(Resume, self).save(*args, **kwargs)
 
 class ResumeBook(models.Model):
 	year = models.IntegerField(max_length=4, choices=YEAR_CHOICES, default=FRESHMAN)
@@ -99,9 +99,6 @@ class ResumeBook(models.Model):
 		if bool(self.book) and mimetypes.guess_type(self.book.name)[0] != "application/pdf":
 			raise ValidationError('Resume book must be a PDF.')
 
-	def save(self, *args, **kwargs):
-		super(ResumeBook, self).save()
-
 	def industry_nice(self):
 		return TYPE_CHOICES[self.industry][1]
 
@@ -121,7 +118,7 @@ class Company(models.Model):
 
 	def save(self, *args, **kwargs):
 		self.unique_hash = hashlib.sha1("INE"+self.name+str(random.randint(0,100))).hexdigest()
-		super(Company, self).save()
+		super(Company, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.name
