@@ -1,5 +1,18 @@
 from django.contrib import admin
 from drop.models import Resume, ResumeBook, Company, DropEvent
+from itertools import groupby
+from django.core.files import File
+import requests,  os, errno
+from models import get_book_path
+
+def mkdir_p(path):
+  try:
+    os.makedirs(path)
+  except OSError as exc: # Python >2.5
+    if exc.errno == errno.EEXIST and os.path.isdir(path):
+      pass
+    else:
+        raise
 
 class DropEventAdmin(admin.ModelAdmin):
     fields = ['name', 'description', 'ends', 'slug']
@@ -19,6 +32,26 @@ class ResumeBookAdmin(admin.ModelAdmin):
         return self.readonly_fields
     search_fields = ['industry','year']
     list_display = ['__unicode__','industry','year']
+    def save_related(self, request, form, formsets, change):
+        super(ResumeBookAdmin, self).save_related(request, form, formsets, change)
+        instance = form.instance
+        if not bool(instance.book):
+            import pdf, time
+            resumes = Resume.objects.filter(year=instance.year, industry=instance.industry, event__in=instance.events.all()).order_by('email', 'event')
+            for _, resume_group in groupby(resumes, key=lambda r: r.email):
+                resume = list(resume_group)[-1]
+                resume_loc = resume.path()
+                mkdir_p('/'.join(resume_loc.split('/')[:-1]))
+                r = requests.get(resume.url())
+                with open(resume_loc, 'wb') as f:
+                    for chunk in r.iter_content():
+                        f.write(chunk)
+            tmpfile = "/tmp/" + str(time.time()) + ".pdf"
+            pdf.merge([x.path() for x in resumes], tmpfile)
+            with open(tmpfile, 'r') as f:
+                instance.book.save(get_book_path(instance,tmpfile), File(f))
+            instance.resumes = resumes
+            instance.save()
 
 class CompanyAdmin(admin.ModelAdmin):
     fields = ['name','contact_name','contact_email','industry','unique_hash']
