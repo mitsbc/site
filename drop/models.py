@@ -35,7 +35,7 @@ def get_resume_path(instance, filename):
 
 def get_book_path(instance, filename):
 	subdir = '-'.join([x.slug for x in instance.events.all()])
-	return "drop/books/{0}/{1}/{2}-{1}.pdf".format(instance.industry, subdir, instance.year)
+	return "drop/books/{0}-{2}-{1}.pdf".format(TYPE_CHOICES[instance.industry], subdir, YEAR_CHOICES[instance.year])
 
 class DropEvent(models.Model):
 
@@ -93,8 +93,7 @@ class ResumeBook(models.Model):
 		# return reverse('book', kwargs={'industry': self.industry, 'year': self.year, 'name': slug})
 
 	def path(self):
-		subdir = '-'.join([x.slug for x in self.events.all()])
-		return settings.MEDIA_ROOT + "drop/books/{0}/{1}/{2}-{1}.pdf".format(self.industry, subdir, self.year)
+		return settings.MEDIA_ROOT + get_book_path(self, None)
 
 	def clean(self):
 		super(ResumeBook, self).clean()
