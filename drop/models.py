@@ -34,7 +34,8 @@ def get_resume_path(instance, filename):
 	return "drop/resumes/{0}/{1}/{2}.pdf".format(instance.year, hashlib.sha1("SBC"+instance.email).hexdigest(), instance.name)
 
 def get_book_path(instance, filename):
-	return "drop/books/{0}/{1}.pdf".format(instance.industry, instance.year)
+	subdir = '-'.join([x.slug for x in instance.events.all()])
+	return "drop/books/{0}/{1}/{2}-{1}.pdf".format(instance.industry, subdir, instance.year)
 
 class DropEvent(models.Model):
 

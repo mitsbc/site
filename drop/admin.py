@@ -29,7 +29,7 @@ class ResumeBookAdmin(admin.ModelAdmin):
     readonly_fields = ['resumes']
     def get_readonly_fields(self, request, obj=None):
         if obj:
-            return self.readonly_fields + ('industry','year')
+            return self.readonly_fields + ['industry','year']
         return self.readonly_fields
     search_fields = ['industry','year']
     list_display = ['__unicode__','industry','year']
