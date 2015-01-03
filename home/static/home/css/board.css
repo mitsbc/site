@@ -1,0 +1,344 @@
+div.board {
+	position: relative;
+  height: 100%;
+  width: 100%;
+  min-width: 700px;
+/*  background-image: url('../media/images/temp_background1.jpg');
+  background-size: cover;*/
+}
+div.board-content {
+	position: relative;
+	padding-top: 75px;
+
+}
+div.board-left{
+	float:left;
+	width:100%;
+}
+div.board-right{
+	position: fixed;
+	float:left;
+	right:0px;
+	width: 25%;
+	background-color: #E6E6E6;
+	height: 100%;
+	min-width: 300px;
+	opacity: 0.8;
+	display:none;
+}
+
+div.board-section-header {
+	height: 100px;
+	width: 100%;
+	text-align: center;
+	background-color: #16385C;
+	color:white;
+	line-height: 100px;
+	font-size: 50px;
+}
+
+div.board-section-pictures {
+	width: 100%;
+}
+
+div.board-overview {
+  color:black;
+	width: 100%;
+	padding: 0px;
+}
+
+div.board-overview-container{
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+div.board-overview-left{
+	width: 50%;
+}
+div.board-overview-right{
+	width:50%;
+  left:50%;
+}
+div.board-overview-content{
+  position: relative;
+	padding:10px;
+  width:60%;
+  left:20%;
+  text-align: center;
+}
+
+div.board-overview-text{
+	padding-top: 10px;
+  text-align: justify;
+}
+
+
+
+
+
+div.exec-photo {
+  width: 250px;
+  height: 250px;
+  background-size: cover;
+  background-size: auto auto no-repeat;
+
+  color: #CCCCCC;
+  cursor: pointer;
+  float: left;
+}
+
+div.dark-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.6;
+}
+
+div.exec-name {
+  position: absolute;
+  font-size: 25px;
+  width: 250px;
+  text-align: center;
+  left: 50%;
+  top: 42.5%;
+  margin-left: -125px;
+  color:white;
+  margin-top: 0px;
+}
+
+div.exec-position {
+  position: absolute;
+  font-size: 20px;
+  width: 250px;
+  text-align: center;
+  left: 50%;
+  top: 57%;
+  margin-left: -125px;
+  color:white;
+  margin-top: -10px;
+}
+div.exec-position-long{
+	margin-top: 15px;
+}
+
+
+
+/* SECTION 1 [EXEC] */
+div.photo-s1-1 {
+  background-image: url("../media/board-photos/kevintu.jpg");
+}
+div.photo-s1-2 {
+  background-image: url("../media/board-photos/floratan.jpg");
+}
+div.photo-s1-3 {
+  background-image: url("../media/board-photos/yuqingzhang.jpg");
+}
+div.photo-s1-4 {
+  background-image: url("../media/board-photos/kamilmafoud.jpg");
+}
+div.photo-s1-5 {
+  background-image: url("../media/board-photos/grantgunnison.jpg");
+}
+div.photo-s1-6 {
+  background-image: url("../media/board-photos/dheevesharulmani.jpg");
+}
+div.photo-s1-7 {
+  background-image: url("../media/board-photos/jessicali.jpg");
+}
+div.photo-s1-8 {
+  background-image: url("../media/board-photos/srinidhiviswanathan.png");
+}
+div.photo-s1-9 {
+  background-image: url("../media/board-photos/hyunyang.jpg");
+}
+div.photo-s1-10 {
+  background-image: url("../media/board-photos/dannycallahan.jpg");
+}
+div.photo-s1-11 {
+  background-image: url("../media/board-photos/minsookhang.jpg");
+}
+div.photo-s1-12 {
+  background-image: url("../media/board-photos/yasyfmohamedali.jpg");
+}
+div.photo-s1-13 {
+  background-image: url("../media/board-photos/tysonchen.jpg");
+}
+
+/* SECTION 2 [FINANCE] */
+div.photo-s2-1 {
+  background-image: url("../media/board-photos/grantgunnison.jpg");
+}
+div.photo-s2-2 {
+  background-image: url("../media/board-photos/kamilmafoud.jpg");
+}
+div.photo-s2-3 {
+  background-image: url("../media/board-photos/nicholasanaya.png");
+}
+div.photo-s2-4 {
+  background-image: url("../media/board-photos/bryanchang.png");
+}
+div.photo-s2-5 {
+  background-image: url("../media/board-photos/mattkim.png");
+}
+div.photo-s2-6 {
+  background-image: url("../media/board-photos/nicolailudvigsen.jpg");
+}
+div.photo-s2-7 {
+  background-image: url("../media/board-photos/christianvilanilam.png");
+}
+div.photo-s2-8 {
+  background-image: url("../media/board-photos/frankzhu.png");
+}
+div.photo-s2-9 {
+  background-image: url("../media/board-photos/dannycallahan.jpg");
+}
+div.photo-s2-10 {
+  background-image: url("../media/board-photos/jasonleung.png");
+}
+div.photo-s2-11 {
+  background-image: url("../media/board-photos/anirudhsailesh.jpg");
+}
+div.photo-s2-12 {
+  background-image: url("../media/board-photos/josephsullivan.jpg");
+}
+div.photo-s2-13 {
+  background-image: url("../media/board-photos/penghuizhou.jpg");
+}
+div.photo-s2-14 {
+  background-image: url("../media/board-photos/thomascowan.jpg");
+}
+div.photo-s2-15 {
+  /* background-image: url("../media/board-photos/marioho.jpg"); */
+  background-image: url("../media/board-photos/placeholder.png");
+}
+div.photo-s2-16 {
+  background-image: url("../media/board-photos/minsookhang.jpg");
+}
+div.photo-s2-17 {
+  background-image: url("../media/board-photos/alexanderlee.jpg");
+}
+div.photo-s2-18 {
+  background-image: url("../media/board-photos/adamslakter.jpg");
+}
+div.photo-s2-19 {
+  background-image: url("../media/board-photos/hyunyang.jpg");
+}
+
+/* SECTION 3 [CONSULTING] */
+div.photo-s3-1 {
+  background-image: url("../media/board-photos/dheevesharulmani.jpg");
+}
+div.photo-s3-2 {
+  background-image: url("../media/board-photos/jessicali.jpg");
+}
+div.photo-s3-3 {
+  background-image: url("../media/board-photos/michellelee.png");
+}
+div.photo-s3-4 {
+  background-image: url("../media/board-photos/renemiller.png");
+}
+div.photo-s3-5 {
+  background-image: url("../media/board-photos/hannaraenam.png");
+}
+div.photo-s3-6 {
+  background-image: url("../media/board-photos/santhoshnarayan.png");
+}
+div.photo-s3-7 {
+  background-image: url("../media/board-photos/katherineshen.png");
+}
+div.photo-s3-8 {
+  background-image: url("../media/board-photos/raichelleaniceto.jpg");
+}
+div.photo-s3-9 {
+  background-image: url("../media/board-photos/tiffanywong.png");
+}
+div.photo-s3-10 {
+  background-image: url("../media/board-photos/yuqingzhang.jpg");
+}
+div.photo-s3-11 {
+  background-image: url("../media/board-photos/aneeshagrawal.jpg");
+}
+div.photo-s3-12 {
+  background-image: url("../media/board-photos/tysonchen.jpg");
+}
+div.photo-s3-13 {
+  background-image: url("../media/board-photos/moriellevy.jpg");
+}
+div.photo-s3-14 {
+  background-image: url("../media/board-photos/tejassundaresan.jpg");
+}
+
+/* SECTION 4 [ENGINEERING] */
+div.photo-s4-1 {
+  background-image: url("../media/board-photos/srinidhiviswanathan.png");
+}
+div.photo-s4-2 {
+  background-image: url("../media/board-photos/kevintu.jpg");
+}
+div.photo-s4-3 {
+  background-image: url("../media/board-photos/floratan.jpg");
+}
+div.photo-s4-4 {
+  background-image: url("../media/board-photos/nikhilbuduma.jpg");
+}
+div.photo-s4-5 {
+  background-image: url("../media/board-photos/anthonyemberley.jpg");
+}
+div.photo-s4-6 {
+  background-image: url("../media/board-photos/yasyfmohamedali.jpg");
+}
+
+/* SECTION 5 [FRESHMEN] */
+div.photo-s5-1 {
+  background-image: url("../media/board-photos/advaithanand.jpg");
+}
+div.photo-s5-2 {
+  background-image: url("../media/board-photos/evaboal.jpg");
+}
+div.photo-s5-3 {
+  /* background-image: url("../media/board-photos/leighmariebraswell.jpg"); */
+  background-image: url("../media/board-photos/placeholder.png");
+
+}
+div.photo-s5-4 {
+  background-image: url("../media/board-photos/nicolechesnokov.jpg");
+}
+div.photo-s5-5 {
+  background-image: url("../media/board-photos/johnking.jpg");
+}
+div.photo-s5-6 {
+  background-image: url("../media/board-photos/tiffanyli.jpg");
+}
+div.photo-s5-7 {
+  background-image: url("../media/board-photos/andreali.jpg");
+}
+div.photo-s5-8 {
+  background-image: url("../media/board-photos/timlu.jpg");
+}
+div.photo-s5-9 {
+  background-image: url("../media/board-photos/antonismichael.jpg");
+}
+div.photo-s5-10 {
+  background-image: url("../media/board-photos/sudhanshumishra.jpg");
+}
+div.photo-s5-11 {
+  background-image: url("../media/board-photos/ajaysaini.jpg");
+}
+div.photo-s5-12 {
+  /* background-image: url("../media/board-photos/ethanstark.jpg"); */
+  background-image: url("../media/board-photos/placeholder.png");
+
+}
+div.photo-s5-13 {
+	/* background-image: url("../media/board-photos/sophiatabchouri.jpg"); */  
+	background-image: url("../media/board-photos/placeholder.png");
+
+}
+div.photo-s5-14 {
+  background-image: url("../media/board-photos/maggieyuan.jpg");
+}
+div.photo-s5-15 {
+  background-image: url("../media/board-photos/stepheniezhang.jpg");
+}

@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'GothamBold';
+}
+
+a {
+  text-decoration: none;
+}
+
+div.navbar {
+  position: fixed;
+  height: 75px;
+  width: 100%;
+  min-width: 700px;
+
+  background-color: #fff;
+  opacity: 0.95;
+
+  border-bottom: 1px solid #E6E6E6;
+
+  z-index: 100;
+}
+div.navbar-logo {
+  height: 60px;
+  float: left;
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+#logo{
+  height: 35px;
+}
+div.navbar-title {
+  height: 60px;
+  float: left;
+  font-size: 20px;
+  padding-top: 25px;
+}
+
+div.navbar-title a {
+  color: #656565;
+}
+div.navbar-tall {
+  float:left;
+  font-size: 30px;
+  margin-top: -6px;
+  margin-left: -8px;
+}
+div.nav-link {
+  height: 75px;
+  float: right;
+  padding: 37.5px 15px 0px 15px;
+  margin-top: -7.5px;
+  font-size:13px;
+}
+div.nav-link a {
+  color: #656565;
+}
+div.nav-link a:hover {
+  opacity: 0.7
+}
+
+
+/* FONT DECLARATIONS */
+div.home-subtext, div.welcome-subtext, div.exec-position, div.board-overview-text, div.announcement-content{
+  font-family: 'GothamLight'
+}

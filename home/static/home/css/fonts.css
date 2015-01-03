@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'GothamBold';
+    src: url('../font/gothamhtf-bolditalic-webfont.eot');
+    src: url('../font/gothamhtf-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/gothamhtf-bolditalic-webfont.woff2') format('woff2'),
+         url('../font/gothamhtf-bolditalic-webfont.woff') format('woff'),
+         url('../font/gothamhtf-bolditalic-webfont.ttf') format('truetype'),
+         url('../font/gothamhtf-bolditalic-webfont.svg#gotham_htfbold_italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'GothamBold';
+    src: url('../font/gothamhtf-bold-webfont.eot');
+    src: url('../font/gothamhtf-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/gothamhtf-bold-webfont.woff2') format('woff2'),
+         url('../font/gothamhtf-bold-webfont.woff') format('woff'),
+         url('../font/gothamhtf-bold-webfont.ttf') format('truetype'),
+         url('../font/gothamhtf-bold-webfont.svg#gotham_htfbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'GothamLight';
+    src: url('../font/gothamhtf-light-webfont.eot');
+    src: url('../font/gothamhtf-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/gothamhtf-light-webfont.woff2') format('woff2'),
+         url('../font/gothamhtf-light-webfont.woff') format('woff'),
+         url('../font/gothamhtf-light-webfont.ttf') format('truetype'),
+         url('../font/gothamhtf-light-webfont.svg#gotham_htflight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'GothamLight';
+    src: url('../font/gothamhtf-lightitalic-webfont.eot');
+    src: url('../font/gothamhtf-lightitalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/gothamhtf-lightitalic-webfont.woff2') format('woff2'),
+         url('../font/gothamhtf-lightitalic-webfont.woff') format('woff'),
+         url('../font/gothamhtf-lightitalic-webfont.ttf') format('truetype'),
+         url('../font/gothamhtf-lightitalic-webfont.svg#gotham_htflight_italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'GothamThin';
+    src: url('../font/gothamhtf-thin-webfont.eot');
+    src: url('../font/gothamhtf-thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/gothamhtf-thin-webfont.woff2') format('woff2'),
+         url('../font/gothamhtf-thin-webfont.woff') format('woff'),
+         url('../font/gothamhtf-thin-webfont.ttf') format('truetype'),
+         url('../font/gothamhtf-thin-webfont.svg#gotham_htfthin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'GothamThin';
+    src: url('../font/gothamhtf-thinitalic-webfont.eot');
+    src: url('../font/gothamhtf-thinitalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../font/gothamhtf-thinitalic-webfont.woff2') format('woff2'),
+         url('../font/gothamhtf-thinitalic-webfont.woff') format('woff'),
+         url('../font/gothamhtf-thinitalic-webfont.ttf') format('truetype'),
+         url('../font/gothamhtf-thinitalic-webfont.svg#gotham_htfthin_italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@import url(http://fonts.googleapis.com/css?family=Raleway:100);

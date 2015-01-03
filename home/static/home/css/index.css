@@ -1,0 +1,104 @@
+div.home {
+  height: 100%;
+  width: 100%;
+  min-width: 700px;
+  background-image: url('../media/images/temp_background1.jpg');
+  background-size: cover;
+  min-height: 700px;
+}
+div.home-content-container, div.welcome-content-container{
+  position: relative;
+  height: 250px;
+  width: 500px;
+  left: 50%;
+  top: 50%;
+  min-width: 300px;
+  opacity: 0.6;
+  background-color: black; 
+}
+div.home-content, div.welcome-content {
+  position: relative;
+  height: 250px;
+  width: 485px;
+  left: 50%;
+  top: 50%;
+  min-width: 300px;
+  color:white;
+  opacity: 1;
+  padding: 10px;
+  margin-top: -250px;
+  margin-left: 3px;
+}
+div.home-title, div.welcome-title {
+  font-size: 40px;
+}
+div.home-subtext, div.welcome-subtext: {
+  size:30px;
+}
+
+div.welcome {
+  height: 100%;
+  width: 100%;
+  min-width: 700px;
+  background-image: url('../media/images/background_networking_blue.jpg');
+  background-size: cover;
+  opacity: 0.95;
+}
+div.welcome-content-container{
+  left: 10%;
+}
+div.welcome-content {
+  left: 10%;
+}
+
+div.contact {
+  height: 100%;
+  width: 100%;
+  min-width: 700px;
+  background: white;
+  background-size: cover;
+}
+
+div.contact-content{
+  position: relative;
+  top: 50%;
+  left:50%;
+  width: 650px;
+  height: 200px;
+  margin-left: -325px;
+
+  color:grey;
+}
+
+div.contact-content-left {
+  float: left;
+  width: 50%;
+}
+div.contact-content-left-text {
+  float: right;
+  font-size: 40px;
+  margin-right: 10px;
+}
+div.contact-content-right {
+  float: left;
+  width: 50%;
+}
+div.contact-content-right-text {
+  font-size: 19px;
+  padding-left: 0px;
+}
+a.contact-link{
+  color:black;
+}
+a.contact-link:hover{
+  color:#E6E6E6;
+}
+
+div.footer {
+  font-size: 15px;
+  position: absolute;
+  bottom:0px;
+  right:0px;
+  padding:2.5px;
+  color:grey;
+}
