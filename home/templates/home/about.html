@@ -1,19 +1,779 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
-{% block title %}Who We Are{% endblock %}
+{% block title %}Board{% endblock %}
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'home/css/board.css' %}?v={{ STATIC_VERSION }}">
+{% endblock %}
+{% block js %}
+  <script type="text/javascript" src="{% static 'home/js/index.js' %}?v={{ STATIC_VERSION }}"></script>
+  <script type="text/javascript" src="{% static 'home/js/freewall.js' %}?v={{ STATIC_VERSION }}"></script>
+{% endblock %}
 {% block body %}
-<div class="grid_12 featurebar left">
-<h1>Who We Are</h1>
-</div>
-<div class="grid_12 left">
-<h2>The SBC Mission</h2>
-<p>SBC (Sloan Business Club) was founded on the belief that while MIT provides its students with an excellent academic and intellectual foundation, the successful business person requires opportunities and skills that cannot be bestowed in any classroom setting. Through our extensive selection of events, our organization works to provide our 1,600+ members with both an expansive business network and a solid mentorship base, enabling students to fully utilize their academic backgrounds in launching strong businesses.</p>
-<h2>What Makes SBC Unique</h2>
-<p>Our organization is characterized by a rare comprehensive outreach, encompassing MIT undergraduates as well as graduate students and postdoctoral fellows. By extending ourselves across both the Sloan School of Management Science and the MIT science and engineering community, we draw from a truly diverse collection of perspectives, ideas, and talents.</p>
-<p>Our division into focus groups is completely unique to SBC. We realize that business is a multi-faceted field and business students come in many types. Through this organizational strategy, we ensure that our group caters to the specific needs of each individual, regardless of whether they lean towards consulting, engineering leadership, entrepreneurship, and finance.</p>
-<h2>SBC Board Structure</h2>
-<p>The SBC Board is structured to provide industry specific focus groups working with a club wide operations group. The executive board consists of presidents and the managing directors of each focus group as well as operations. Operations handles critical administrative tasks, such as marketing for events, organizing large events that cross focus group, and maintaining the club’s finances. To learn more about the structure of SBC, please read our <a href="{% static 'home/img/about/SBC_Constitution_April_2013.pdf' %}" target="_blank">constitution</a>, which was last updated April 6, 2013.</p>
-<h2>SBC Board Members</h2>
-<p>Our leadership is comprised of three focus groups, <a href="{% url 'members_by_name' 'consulting' %}">Consulting</a>, <a href="{% url 'members_by_name' 'finance' %}">Finance</a>, and <a href="{% url 'members_by_name' 'engineering' %}">Engineering Leadership</a>, which report directly to the <a href="{% url 'members_by_name' 'exec' %}">Executive Board</a>. The General Board is comprised of members from the <a href="{% url 'members_by_year' '2015' %}">Class of 2015</a>, <a href="{% url 'members_by_year' '2016' %}">Class of 2016</a>, and <a href="{% url 'members_by_year' '2017' %}">Class of 2017</a>.</p>
-</div>
+  <div class="board">
+    <div class="board-content">
+      <div class="board-section"> <!-- BEGIN BOARD SECION -->
+        <div class="board-section-header">
+          BOARD STRUCTURE
+        </div>
+        <div class="board-overview">
+          <div class="board-overview-container">
+            <div class="board-overview-content">
+              WHAT MAKES SBC UNIQUE:
+              <div class="board-overview-text">
+                Our organization is characterized by a rare comprehensive outreach, encompassing MIT undergraduates as well as graduate students and postdoctoral fellows. By extending ourselves across both the Sloan School of Management Science and the MIT science and engineering community, we draw from a truly diverse collection of perspectives, ideas, and talents. <br><br>
+
+                Our division into focus groups is completely unique to SBC. We realize that business is a multi-faceted field and business students come in many types. Through this organizational strategy, we ensure that our group caters to the specific needs of each individual, regardless of whether they lean towards <i>consulting, engineering leadership, entrepreneurship, and finance</i>.
+              </div>
+            </div>
+            <div class="board-overview-content">
+              BOARD STRUCTURE:
+              <div class="board-overview-text">
+                The SBC Board is structured to provide industry specific focus groups working with a club wide operations group. The executive board consists of presidents and the managing directors of each focus group as well as operations. Operations handles critical administrative tasks, such as marketing for events, organizing large events that cross focus group, and maintaining the club's finances.
+              </div>
+            </div>
+            <div class="board-overview-left">
+
+            </div>
+            <div class="board-overview-right">
+
+            </div>
+          </div>
+        </div>
+      </div> <!-- END BOARD SECION -->
+
+      <div class="board-section"> <!-- BEGIN BOARD SECION [EXEC]-->
+        <div class="board-section-header">
+          EXECUTIVE BOARD
+        </div>
+        <div class="board-section-pictures section1">
+          <div class="exec-photo photo-s1-1">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              KEVIN TU
+            </div>
+            <div class="exec-position">
+              co-president
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-2">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              FLORA TAN
+            </div>
+            <div class="exec-position">
+              co-president
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-3">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              YUQING ZHANG
+            </div>
+            <div class="exec-position">
+              vice president
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-4">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              KAMIL MAFOUD
+            </div>
+            <div class="exec-position">
+              finance director
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-5">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              GRANT GUNNISON
+            </div>
+            <div class="exec-position">
+              finance director
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-6">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              DHEEVESH ARULMANI
+            </div>
+            <div class="exec-position exec-position-long">
+              consulting director
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-7">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              JESSICA LI
+            </div>
+            <div class="exec-position">
+              consulting director
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-8">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              SRINIDHI VISWANATHAN
+            </div>
+            <div class="exec-position exec-position-long">
+              engineering director
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-9">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              HYUN YANG
+            </div>
+            <div class="exec-position">
+              treasurer
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-10">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              DANNY CALLAHAN
+            </div>
+            <div class="exec-position exec-position-long">
+              membership chair
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-11">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              MINSOO KHANG
+            </div>
+            <div class="exec-position">
+              membership chair
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-12">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              YASYF MOHAMEDALI
+            </div>
+            <div class="exec-position exec-position-long">
+              webmaster
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-13">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              TYSON CHEN
+            </div>
+            <div class="exec-position">
+              marketing director
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-14">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              TEJAS SUNDARESAN
+            </div>
+            <div class="exec-position exec-position-long">
+              board education
+            </div>
+          </div>
+          <div class="exec-photo photo-s1-15">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ADAM SLAKTER
+            </div>
+            <div class="exec-position">
+              board education
+            </div>
+          </div>
+        </div>
+      </div> <!-- END BOARD SECION [EXEC]-->
+
+      <div class="board-section"> <!-- BEGIN BOARD SECION [FINANCE]-->
+        <div class="board-section-header">
+          FINANCE
+        </div>
+        <div class="board-section-pictures section2">
+          <div class="exec-photo photo-s2-1">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              GRANT GUNNISON
+            </div>
+            <div class="exec-position">
+              director of finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-2">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              KAMIL MAFOUD
+            </div>
+            <div class="exec-position">
+              director of finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-3">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              NICHOLAS ANAYA
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-4">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              BRYAN CHANG
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-5">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              MATT KIM
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-6">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              NICOLAI LUDVIGSEN
+            </div>
+            <div class="exec-position exec-position-long">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-7">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              CHRISTIAN VILANILAM
+            </div>
+            <div class="exec-position exec-position-long">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-8">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              FRANK ZHU
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-9">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              DANNY CALLAHAN
+            </div>
+            <div class="exec-position exec-position-long">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-10">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              JASON LEUNG
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-11">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ANIRUDH SAILESH
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-12">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              JOSEPH SULLIVAN
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-13">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              PENGHUI ZHOU
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-14">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              THOMAS COWAN
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-15">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              MARIO HO
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-16">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              MINSOO KHANG
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-17">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ALEXANDER LEE
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-18">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ADAM SLAKTER
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+          <div class="exec-photo photo-s2-19">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              HYUN YANG
+            </div>
+            <div class="exec-position">
+              finance
+            </div>
+          </div>
+
+        </div>
+      </div> <!-- END BOARD SECION [FINANCE]-->
+
+      <div class="board-section"> <!-- BEGIN BOARD SECION [CONSULTING]-->
+        <div class="board-section-header">
+          CONSULTING
+        </div>
+        <div class="board-section-pictures section3">
+          <div class="exec-photo photo-s3-1">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              DHEEVESH ARULMANI
+            </div>
+            <div class="exec-position exec-position-long">
+              director of consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-2">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              JESSICA LI
+            </div>
+            <div class="exec-position">
+              director of consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-3">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              MICHELLE LEE
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-4">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              RENE MILLER
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-5">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              HANNARAE NAM
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-6">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              SANTHOSH NARAYAN
+            </div>
+            <div class="exec-position exec-position-long">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-7">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              KATHERINE SHEN
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-8">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              RAICHELLE ANICETO
+            </div>
+            <div class="exec-position exec-position-long">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-9">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              TIFFANY WONG
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-10">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              YUQING ZHANG
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-11">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ANEESH AGRAWAL
+            </div>
+            <div class="exec-position exec-position-long">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-12">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              TYSON CHEN
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-13">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              MORIEL LEVY
+            </div>
+            <div class="exec-position">
+              consulting
+            </div>
+          </div>
+          <div class="exec-photo photo-s3-14">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              TEJAS SUNDARESAN
+            </div>
+            <div class="exec-position exec-position-long">
+              consulting
+            </div>
+          </div>
+        </div>
+      </div> <!-- END BOARD SECION [CONSULTING]-->
+
+      <div class="board-section"> <!-- BEGIN BOARD SECION [ENGINEERING]-->
+        <div class="board-section-header">
+          ENGINEERING LEADERSHIP
+        </div>
+        <div class="board-section-pictures section4">
+          <div class="exec-photo photo-s4-1">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              SRINIDHI VISWANATHAN
+            </div>
+            <div class="exec-position exec-position-long">
+              director of engineering
+            </div>
+          </div>
+          <div class="exec-photo photo-s4-2">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              KEVIN TU
+            </div>
+            <div class="exec-position">
+              engineering
+            </div>
+          </div>
+          <div class="exec-photo photo-s4-3">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              FLORA TAN
+            </div>
+            <div class="exec-position">
+              engineering
+            </div>
+          </div>
+          <div class="exec-photo photo-s4-4">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              NIKHIL BUDUMA
+            </div>
+            <div class="exec-position">
+              engineering
+            </div>
+          </div>
+          <div class="exec-photo photo-s4-5">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ANTHONY EMBERLEY
+            </div>
+            <div class="exec-position exec-position-long">
+              engineering
+            </div>
+          </div>
+          <div class="exec-photo photo-s4-6">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              YASYF MOHAMEDALI
+            </div>
+            <div class="exec-position exec-position-long">
+              engineering
+            </div>
+          </div>
+        </div>
+      </div> <!-- END BOARD SECION [ENGINEERING]-->
+
+      <div class="board-section"> <!-- BEGIN BOARD SECION [FRESHMEN]-->
+        <div class="board-section-header">
+          GENERAL BOARD MEMBERS
+        </div>
+        <div class="board-section-pictures section5">
+          <div class="exec-photo photo-s5-1">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ADVAITH ANAND
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-2">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              EVA BOAL
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-3">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              LEIGH MARIE BRASWELL
+            </div>
+            <div class="exec-position exec-position-long">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-4">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              NICOLE CHESNOKOV
+            </div>
+            <div class="exec-position exec-position-long">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-5">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              JOHN KING
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-6">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              TIFFANY LI
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-7">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ANDREA LI
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-8">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              TIM LU
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-9">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ANTONIS MICHAEL
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-10">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              SUDHANSHU MISHRA
+            </div>
+            <div class="exec-position exec-position-long">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-11">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              AJAY SAINI
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-12">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              ETHAN STARK
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-13">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              SOPHIA TABCHOURI
+            </div>
+            <div class="exec-position exec-position-long">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-14">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              MAGGIE YUAN
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+          <div class="exec-photo photo-s5-15">
+            <div class="dark-overlay"></div>
+            <div class="exec-name">
+              STEPHENIE ZHANG
+            </div>
+            <div class="exec-position">
+              general board
+            </div>
+          </div>
+        </div>
+      </div> <!-- END BOARD SECION [FRESHMEN]-->
+
+    </div>
+  </div>
+
+  <script type = "text/javascript">
+    var wall1 = new freewall("div.section1");
+    wall1.reset({
+      selector: '.exec-photo',
+      animate: true,
+      cellW: 250,
+      cellH: 250,
+      gutterX: 0,
+      gutterY: 0,
+      onResize: function() {
+        wall1.refresh();
+      }
+    });
+    wall1.fitWidth();
+
+    var wall2 = new freewall("div.section2");
+    wall2.reset({
+      selector: '.exec-photo',
+      animate: true,
+      cellW: 250,
+      cellH: 250,
+      gutterX: 0,
+      gutterY: 0,
+      onResize: function() {
+        wall2.refresh();
+      }
+    });
+    wall2.fitWidth();
+    var wall3 = new freewall("div.section3");
+    wall3.reset({
+      selector: '.exec-photo',
+      animate: true,
+      cellW: 250,
+      cellH: 250,
+      gutterX: 0,
+      gutterY: 0,
+      onResize: function() {
+        wall3.refresh();
+      }
+    });
+    wall3.fitWidth();
+    var wall4 = new freewall("div.section4");
+    wall4.reset({
+      selector: '.exec-photo',
+      animate: true,
+      cellW: 250,
+      cellH: 250,
+      gutterX: 0,
+      gutterY: 0,
+      onResize: function() {
+        wall4.refresh();
+      }
+    });
+    wall4.fitWidth();
+    var wall5 = new freewall("div.section5");
+    wall5.reset({
+      selector: '.exec-photo',
+      animate: true,
+      cellW: 250,
+      cellH: 250,
+      gutterX: 0,
+      gutterY: 0,
+      onResize: function() {
+        wall5.refresh();
+      }
+    });
+    wall5.fitWidth();
+    // for scroll bar appear;
+    $(window).trigger("resize");
+  </script>
 {% endblock %}

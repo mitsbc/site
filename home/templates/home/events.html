@@ -1,39 +1,42 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
-{% block title %}Upcoming Events{% endblock %}
+{% block title %}Events{% endblock %}
 {% block css %}
-  <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.css" rel="stylesheet" />
-  <link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.print.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="{% static 'home/css/events.css' %}?v={{ STATIC_VERSION }}">
 {% endblock %}
 {% block js %}
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/fullcalendar.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.1/gcal.js"></script>
+  <script type="text/javascript" src="{% static 'home/js/index.js' %}?v={{ STATIC_VERSION }}"></script>
 {% endblock %}
-
 {% block body %}
-<div class="grid_12 featurebar left">
-<h1>Upcoming Events</h1>
-	{% for item in calendar_items %}
-		<div class="grid_4 {% if forloop.first %}alpha{% endif %}{% if forloop.last %}omega{% endif %}">
-			<p><h3><a href="{{ item.url }}">{{ item.name }}</a></h3></p>
-			<p><b>When:</b> {{ item.time|date:"l, F j \a\t h:i A" }}</p>
-			<p><b>Where:</b> {{ item.location }}</p>
-			<p><b>What:</b> {{ item.description|truncatewords:10 }} <a href="{{ item.url }}">Read more</a></p>
-		</div>
-	{% endfor %}
-	<div id='calendar'></div>
+<div class="events">
+  <div class="events-content">
+    {% if calendar_items %}
+      <div class="events-section-header">
+        ANNOUNCEMENTS
+      </div>
+      <div class="events-section-content">
+        {% for item in calendar_items %}
+          <div class="announcement">
+            <div class="announcement-title">
+              {{ item.name }} | {{ item.time|date:"l, F j \a\t h:i A" }}
+            </div>
+            <div class="announcement-content">
+              <p>{{ item.location }}</p>
+              <p>{{ item.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <div class="events-section-header">
+      CALENDAR
+    </div>
+    <div class="events-section-content">
+      <div class="calendar">
+        <!-- GOOGLE CALENDAR -->
+        <iframe src="https://www.google.com/calendar/embed?src=7ivleb1ir8bot68o8qfm6133a0%40group.calendar.google.com&ctz=America/Los_Angeles" class="calendar-iframe"></iframe>
+      </div>
+    </div>
+  </div>
 </div>
-
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#calendar').fullCalendar({
-      eventSources: [
-        "{% url 'events_json' %}",
-        "{{ gcal_url }}"
-      ]
-    })
-});
-</script>
 {% endblock %}
