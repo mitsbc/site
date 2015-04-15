@@ -1,5 +1,9 @@
 $(document).ready(function() {
+  if (window.location.search == "?contact") {
+    moveTo(".main", 3);
+  }
   $("a.contact-nav-link").click(function() {
+    window.location = 'http://mitsbc.mit.edu/?contact';
     moveTo(".main", 3);
     // $('html, body').animate({
     //   scrollTop: $("div.contact").offset().top
@@ -7,7 +11,7 @@ $(document).ready(function() {
     return false;
   });
   $("a.contact-nav-link-redirect").click(function() {
-    window.location = '/';
+    window.location = 'http://mitsbc.mit.edu/?contact';
     moveTo(".main", 3);
     // $('html, body').animate({
     //   scrollTop: $("div.contact").offset().top
@@ -15,7 +19,7 @@ $(document).ready(function() {
     return false;
   });
   $("a.home-nav-link").click(function() {
-    window.location = '/';
+    window.location = 'http://mitsbc.mit.edu/';
     moveTo(".main", 1);
     // $('html, body').animate({
     //   scrollTop: $("div.home").offset().top
