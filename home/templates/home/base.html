@@ -3,18 +3,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{% block title %}{% endblock %} - MIT Sloan Business Club</title>
+    <title>mitsbc | {% block title %}{% endblock %}</title>
     <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
     <meta name="description" content="SBC (Sloan Business Club) is an on-campus organization at Massachusetts Institute of Technology with the purpose of connecting the MIT campus to the professional world." />
     <meta property="og:image" content="{% static 'home/img/sbclogo.png' %}?v={{ STATIC_VERSION }}" />
     {% block meta %}{% endblock %}
 		<link rel="shortcut icon" href="{% static 'home/img/favicon.ico' %}">
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:400,700,900">
-		<link rel="stylesheet" type="text/css" href="{% static 'home/css/960_12_col.css' %}?v={{ STATIC_VERSION }}">
-		<link rel="stylesheet" type="text/css" href="{% static 'home/css/jquery.bxslider.css' %}?v={{ STATIC_VERSION }}">
-		<link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}?v={{ STATIC_VERSION }}">
-		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/pure/0.3.0/forms-min.css">
-		<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/pure/0.3.0/buttons-min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/style.css' %}?v={{ STATIC_VERSION }}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/css/onepage-scroll.css' %}?v={{ STATIC_VERSION }}">
 		{% block css %}{% endblock %}
 		{% if not request.session.django_timezone %}
 		<script type="text/javascript" src="{% static 'home/js/jstz-1.0.4.min.js' %}?v={{ STATIC_VERSION }}"></script>
@@ -22,7 +18,8 @@
 		<script type="text/javascript" src="//code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.0/jquery.cookie.min.js"></script>
-		<script type="text/javascript" src="{% static 'home/js/superfish.min.js' %}?v={{ STATIC_VERSION }}"></script>
+		<script type="text/javascript" src="{% static 'home/js/jquery.easing.1.3.js' %}?v={{ STATIC_VERSION }}"></script>
+		<script type="text/javascript" src="{% static 'home/js/onepagescroll.min.js' %}?v={{ STATIC_VERSION }}"></script>
 		{% block js %}{% endblock %}
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -36,36 +33,9 @@
 		</script>
   </head>
   <body>
-  	<div class="container_12 main">
-	<div class="grid_12 menu" style="position: relative;">
-		<a id="banner" href="{% url 'index' %}"><img src="{% static 'home/img/banner.png' %}?v={{ STATIC_VERSION }}" /></a>
-		<ul id='menu' class='menu_ul'>
-			{% for item in top_menu.menuitems.all %}
-			<li class='menu_li'>
-				<a href="{{ item.url }}">{{ item.text }}</a>
-				{% if item.children_objects %}
-				<ul class='sub_ul'>
-					{% for i in item.children_objects %}
-					<li class='sub_li'><a href="{{ i.url }}">{{ i.text }}</a></li>
-					{% endfor %}
-				</ul>
-				{% endif %}
-			</li>
-			{% endfor %}
-		</ul>
-	</div>
-	<hr />
-	<div class="clear"></div>
 	{% block body %}{% endblock %}
-	<div class="clear"></div>
-	<hr />
-	<div class="grid_12 footer">
-		<p id="copyright">&copy; 2015 MIT SBC</p>
-	</div>
-	</div>
 	<script>
 	$(document).ready(function() {
-	  $('#menu').superfish();
 	  if(window.top !== window.self){
 		  window.top.location.replace(window.self.location.href);
 	  }
@@ -109,6 +79,3 @@
 	</script>
   </body>
 </html>
-<!-- SBC web development by Yasyf Mohamedali (http://www.yasyf.com). -->
-<!-- Original design by Brendan Chang. -->
-<!-- Graphics by Kiran Wattamwar (http://www.behance.net/wattamwar). -->
