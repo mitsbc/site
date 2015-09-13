@@ -1,4 +1,4 @@
-{% extends "home/base.html" %}
+{% extends "drop/base.html" %}
 {% load staticfiles %}
 {% block title %}{{ event.name }}{% endblock %}
 {% block body %}
@@ -27,9 +27,9 @@
 					{{ field }}
 			{% endfor %}
 	    <br />
-	    <div class="contact-form-submit-div">
-			<input class="pure-button" type="submit" value="Submit" id="contact_submit_btn"/>
-		</div>
+	    <div class="pure-controls">
+				<input class="pure-button" type="submit" value="Submit" id="contact_submit_btn"/>
+			</div>
 		</fieldset>
 	</form>
 </p>
