@@ -1,6 +1,13 @@
 {% extends "home/base.html" %}
 {% load staticfiles %}
 {% block css %}
-  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/960gs/0/960.min.css">
   <link rel="stylesheet" type="text/css" href="{% static 'drop/css/drop.css' %}?v={{ STATIC_VERSION }}">
+{% endblock %}
+
+{% block body %}
+  <div class='container_12'>
+    {% block drop_body %}{% endblock %}
+  </div>
 {% endblock %}
