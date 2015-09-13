@@ -2,28 +2,22 @@ $(document).ready(function() {
   if (window.location.search == "?contact") {
     moveTo(".main", 3);
   }
-  $("a.contact-nav-link").click(function() {
-    window.location = 'http://mitsbc.mit.edu/?contact';
-    moveTo(".main", 3);
-    // $('html, body').animate({
-    //   scrollTop: $("div.contact").offset().top
-    // }, 1000, 'easeInOutExpo', function() {});
+  $("a.contact-nav-link").click(function(e) {
+    if (window.location.pathname == '/') {
+      e.preventDefault();
+      moveTo(".main", 3);
+    } else {
+      window.location = 'http://mitsbc.mit.edu/?contact';
+    }
     return false;
   });
-  $("a.contact-nav-link-redirect").click(function() {
-    window.location = 'http://mitsbc.mit.edu/?contact';
-    moveTo(".main", 3);
-    // $('html, body').animate({
-    //   scrollTop: $("div.contact").offset().top
-    // }, 1000, 'easeInOutExpo', function() {});
-    return false;
-  });
-  $("a.home-nav-link").click(function() {
-    window.location = 'http://mitsbc.mit.edu/';
-    moveTo(".main", 1);
-    // $('html, body').animate({
-    //   scrollTop: $("div.home").offset().top
-    // }, 1000, 'easeInOutExpo', function() {});
+  $("a.home-nav-link").click(function(e) {
+    if (window.location.pathname == '/') {
+      e.preventDefault();
+      moveTo(".main", 1);
+    } else {
+      window.location = 'http://mitsbc.mit.edu/';
+    }
     return false;
   });
 
